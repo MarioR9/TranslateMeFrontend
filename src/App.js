@@ -11,7 +11,7 @@ function App() {
        <NavBar/>
 
       <div>    
-        <Home/>
+        {/* <Home/> */}
         <Profile/>
       </div>
     </div>
