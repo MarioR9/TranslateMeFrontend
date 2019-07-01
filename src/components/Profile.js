@@ -51,10 +51,18 @@ export default class Profile extends React.Component{
     
       handleFetchResponse=(data)=>{
           console.log(data)
+          debugger
           this.setState({
               data: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9), //.sort((a, b) => (a.score < b.score) ? 1 : -1)
               image: data
             })
+        // var imageData = new FormData()
+       
+        // for (const file of evt.target.files) {
+        //     imageData.append('files',file,file.name)
+        // }
+       
+
       }  
 
 
