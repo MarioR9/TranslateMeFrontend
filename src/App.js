@@ -8,6 +8,8 @@ import Categories from './components/Categories'
 import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
 import Images from './components/Images';
+import CategoryCreation from './components/CategoryCreation'
+
 
 export default class App extends React.Component {
   constructor(){
@@ -148,7 +150,7 @@ export default class App extends React.Component {
         <NavBar handleNavLogout={this.handleNavLogout} handleNavProfile={this.handleNavProfile} handleNavHome={this.handleNavHome}/>
 
         <div>    
-          {this.handleCurrentPage()}
+          <CategoryCreation/>
         </div>
       </div>
 
