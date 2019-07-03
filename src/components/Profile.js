@@ -1,5 +1,6 @@
 import React from 'react'
-import axios from 'axios'
+import { Card, Button } from 'semantic-ui-react'
+import Categories from './Categories';
 
 export default class Profile extends React.Component{
     constructor(props) {
@@ -7,59 +8,106 @@ export default class Profile extends React.Component{
         this.state = { 
             hightlight: false,
             scores:[],
-            data: [],
-            selectedFile: null
+            data: []
         }
       
     }
-    uploadHandler = () => {
-        const formData = new FormData()
-        formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name )
-        axios.post(, formData, {
-            onUploadProgress: progressEvent => {
-              console.log(progressEvent.loaded / progressEvent.total)
-            }
+            
+showUploadWidget=()=> {
+    
+    window.cloudinary.openUploadWidget({
+       cloudName: "translateme",
+       uploadPreset: "qks45ycm",
+       sources: [
+           "local",
+           "dropbox",
+           "camera",
+           "facebook",
+           "instagram",
+           "url"
+       ],
+       showAdvancedOptions: false,
+       cropping: true,
+       showCompletedButton: true,
+       autoUpload: false, 
+       multiple: true,
+       showUploadMoreButton: false,
+       defaultSource: "local",
+       text:{
+        "Skip": {
+            "title": "Upload"
+                }
+        },
+       styles: {
+           palette: {
+               window: "#F5F5F5",
+               sourceBg: "#FFFFFF",
+               windowBorder: "#90a0b3",
+               tabIcon: "#0094c7",
+               inactiveTabIcon: "#69778A",
+               menuIcons: "#0094C7",
+               link: "#53ad9d",
+               action: "#8F5DA5",
+               inProgress: "#0194c7",
+               complete: "#53ad9d",
+               error: "#c43737",
+               textDark: "#000000",
+               textLight: "#FFFFFF"
+           },
+           fonts: {
+               default: null,
+               "'IBM Plex Sans', sans-serif": {
+                   url: "https://fonts.googleapis.com/css?family=IBM+Plex+Sans",
+                   active: true
+               }
+           }
+           
+       }
+       
+   },
+   
+    (err, info) => {
+      if (!err) {   
+        
+        console.log("Upload Widget event - ", info);
+        if(info.event === "success"){
+            console.log("URL " + info.info.url)
+        fetch('http://localhost:3000/api/v1/users',{
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            image: info.info.url
+            })
+        })
+        .then(res=>res.json()).then(data => {
+            // debugger
+ 
+        this.handleFetchResponse(data)})
+        }
+
+      }
+     });
+     
+    }
+    handleFetchResponse=(data)=>{
+        console.log(data)
+        // debugger
+        this.setState({
+            scores: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9), //.sort((a, b) => (a.score < b.score) ? 1 : -1)
+            data: data
           })
-        }
-
-        fileChangedHandler = event => {
-        this.setState({ selectedFile: event.target.files[0] })
-        }
-
-        uploadHandler = () => {
-        console.log(this.state.selectedFile)
-        }
-        // fetch=()=>{
-        //         fetch('http://localhost:3000/api/v1/users',{
-        //         method: "POST",
-        //         headers: {"Content-type": "application/json"},
-        //         body: JSON.stringify({
-        //             image: info.info.url
-        //             })
-        //         })
-        //         .then(res=>res.json()).then(data => {
-        //             // debugger
-        
-        //         this.handleFetchResponse(data)})
-        
-        //     }
-        //     handleFetchResponse=(data)=>{
-        //         console.log(data)
-        //         // debugger
-        //         this.setState({
-        //             scores: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9), //.sort((a, b) => (a.score < b.score) ? 1 : -1)
-        //             data: data
-        //         })
-        
-        //     }
-            render(){
+   
+    }
+    render(){
 
        
  
         return(
-            <div>
-               <input type="file" onChange={this.fileChangedHandler}/>
-               <button onClick={this.uploadHandler}>Upload!</button>
+            <div >
+                <Button circular size='medium' primary icon='plus' onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
+                <Card.Group>
+                    <Categories image={this.state.data} scores={this.state.scores}/>
+                </Card.Group>
             </div>
         )
     }

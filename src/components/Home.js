@@ -1,21 +1,31 @@
 import React from 'react'
-import Category from '../components/Categories'
-import { Card } from 'semantic-ui-react'
+import AllCategories from './AllCategories'
+import { Button, Dimmer, Header, Image, Card ,Modal } from 'semantic-ui-react'
+
 
 
 export default class Home extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            active: false,
+            
+        }
+    }
 
-  render() {
-
-    return (
-        
-        <Card.Group itemsPerRow={6}>
-            <Category />
-            <Category/>
-            <Category/>
-            <Category/>
-        </Card.Group>
-      
-    )
-  }
+    handleDimmer=()=>{
+        this.setState({
+            active: !this.state.active
+        })
+    }
+    render(){
+        return(
+            <div>
+            
+            <Card.Group> 
+            {this.props.categories.map(category => <AllCategories id={category.id} key={category.id}category={category}/>)}
+            </Card.Group>
+            </div>
+        )
+    }
 }

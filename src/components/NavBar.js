@@ -27,7 +27,7 @@ export default class NavBar extends React.Component{
         name='Home'
         onClick={()=>{console.log("Home")}}
  >
-          Home
+          Logout
         </Menu.Item>
       </Menu>
           
