@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Dimmer, Header, Image, Card, Modal } from 'semantic-ui-react'
+import React from '../../node_modules/react'
+import { Button, Dimmer, Header, Image, Card, Modal,Icon } from '../../node_modules/semantic-ui-react'
 
 let languages = {Afrikaans:"af",
     Albanian:"sq",
@@ -75,7 +75,7 @@ export default class AllCategory extends React.Component{
 
         }
     }
-    show = dimmer => (e) => {debugger
+    show = dimmer => (e) => {
         this.setState({ 
             dimmer, open: true,
             categoryId: e.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.id
@@ -118,7 +118,7 @@ export default class AllCategory extends React.Component{
     
         return(
             <div>
-                <div>
+                    <div>
                         <Modal dimmer={dimmer} open={open} onClose={this.close}>
                         <Modal.Header>Select a Photo</Modal.Header>
                         <Modal.Content image>
@@ -157,8 +157,21 @@ export default class AllCategory extends React.Component{
                         src={this.props.category.url}
                     />
                     } >
-                
                     </Card> 
+                    <div>
+                    <Card.Content>
+                        <Card.Header>{this.props.category.title}</Card.Header>
+                        <Card.Description>
+                            {this.props.category.language}
+                        </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                       
+                            <Icon name='user' />
+                            {this.props.category.images.length} images
+                       
+                    </Card.Content>
+                    </div>
                 </div>
         </div>
         )

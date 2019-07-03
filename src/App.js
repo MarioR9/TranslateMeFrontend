@@ -1,4 +1,4 @@
-import React from 'react';
+import React from '../node_modules/react';
 import './App.css';
 import NavBar from './components/NavBar'
 import Home from './components/Home'
@@ -23,7 +23,8 @@ export default class App extends React.Component {
         listOfCategories: [],
         token: '',
         currentUser: [],
-        allUsers: []
+        allUsers: [],
+        currentCategories: []
 
         }
   }
@@ -108,6 +109,18 @@ export default class App extends React.Component {
       alert(data.message)
     }
   }
+  handleCategoryPage=()=>{
+    this.setState({
+       profilePage: false,
+       imagesPage:true
+    })
+  }
+  handleCurrentCategories=(data)=>{
+
+    this.setState({
+      currentCategories: data
+    })
+  }
 
 
   handleCurrentPage=()=>{
@@ -116,13 +129,13 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleCurrentCategories={this.handleCurrentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser/>
     }else if (this.state.imagesPage === true){
-      return <Images />
+      return <Images img={this.state.currentCategories}/>
     }else if (this.state.categoriesPage === true){
-      return <Categories/>
+      return <Categories />
     }
   }
 

@@ -1,5 +1,8 @@
-import React from 'react'
-import { Card, Button } from 'semantic-ui-react'
+import CLOUDNAME from '../../inventory'
+import UPLOADPRESET from '../../inventory'
+
+import React from '../../node_modules/react'
+import { Card, Button } from '../../node_modules/semantic-ui-react'
 import Categories from './Categories';
 
 export default class Profile extends React.Component{
@@ -17,8 +20,8 @@ export default class Profile extends React.Component{
     showUploadWidget=()=> {
     
     window.cloudinary.openUploadWidget({
-       cloudName: "translateme",
-       uploadPreset: "qks45ycm",
+       cloudName: CLOUDNAME,
+       uploadPreset: UPLOADPRESET,
        sources: [
            "local",
            "dropbox",
@@ -104,7 +107,7 @@ export default class Profile extends React.Component{
             <div >
                     <Card.Group>
                         <Button circular size='medium' primary icon='plus' onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
-                        {this.state.user.categories.map(cate => <Categories cate={cate}/>)}
+                        {this.state.user.categories.map(cate => <Categories handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
             </div>
         )

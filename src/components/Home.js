@@ -1,6 +1,6 @@
-import React from 'react'
+import React from '../../node_modules/react'
 import AllCategories from './AllCategories'
-import { Card } from 'semantic-ui-react'
+import { Card } from '../../node_modules/semantic-ui-react'
 
 
 
