@@ -10,7 +10,6 @@ import Login from './components/Login'
 import Images from './components/Images';
 import CategoryCreation from './components/CategoryCreation'
 
-
 export default class App extends React.Component {
   constructor(){
       super()
@@ -150,7 +149,8 @@ export default class App extends React.Component {
         <NavBar handleNavLogout={this.handleNavLogout} handleNavProfile={this.handleNavProfile} handleNavHome={this.handleNavHome}/>
 
         <div>    
-          <CategoryCreation/>
+          <CategoryCreation currentUser={this.state.currentUser}/>
+          {/* {this.handleCurrentPage()} */}
         </div>
       </div>
 
