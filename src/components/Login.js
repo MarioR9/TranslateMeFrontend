@@ -27,8 +27,8 @@ export default class Login extends React.Component{
             })
         })
         .then(res=>res.json()).then(data => {
-            debugger
- 
+            // debugger
+           this.props.handleToken(data)
         console.log(data)})
     }
 
@@ -48,7 +48,7 @@ export default class Login extends React.Component{
                         </Grid.Column>
 
                         <Grid.Column verticalAlign='middle'>
-                            <Button content='Sign up' icon='signup' size='big' />
+                            <Button onClick={this.props.handleCreateNewUser} content='Sign up' icon='signup' size='big' />
                         </Grid.Column>
                     </Grid>
 

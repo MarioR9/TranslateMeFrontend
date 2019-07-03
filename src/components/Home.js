@@ -1,6 +1,6 @@
 import React from 'react'
 import AllCategories from './AllCategories'
-import { Button, Dimmer, Header, Image, Card ,Modal } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 
 
@@ -18,14 +18,16 @@ export default class Home extends React.Component{
             active: !this.state.active
         })
     }
+
     render(){
         return(
             <div>
             
-            <Card.Group> 
-            {this.props.categories.map(category => <AllCategories id={category.id} key={category.id}category={category}/>)}
-            </Card.Group>
+                <Card.Group> 
+                {this.props.categories.map(category => <AllCategories id={category.id} key={category.id}category={category}/>)}
+                </Card.Group>
+
             </div>
-        )
+               )
     }
 }

@@ -8,12 +8,13 @@ export default class Profile extends React.Component{
         this.state = { 
             hightlight: false,
             scores:[],
-            data: []
+            user: this.props.allUsers.find(user => user.id === this.props.currentUser.id)
         }
       
     }
+   
             
-showUploadWidget=()=> {
+    showUploadWidget=()=> {
     
     window.cloudinary.openUploadWidget({
        cloudName: "translateme",
@@ -62,9 +63,9 @@ showUploadWidget=()=> {
                }
            }
            
-       }
-       
-   },
+        }
+        
+    },
    
     (err, info) => {
       if (!err) {   
@@ -72,7 +73,7 @@ showUploadWidget=()=> {
         console.log("Upload Widget event - ", info);
         if(info.event === "success"){
             console.log("URL " + info.info.url)
-        fetch('http://localhost:3000/api/v1/users',{
+        fetch('http://localhost:3000/api/v1/images',{
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
@@ -85,29 +86,26 @@ showUploadWidget=()=> {
         this.handleFetchResponse(data)})
         }
 
-      }
-     });
+            }
+        });
      
     }
     handleFetchResponse=(data)=>{
         console.log(data)
-        // debugger
         this.setState({
             scores: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9), //.sort((a, b) => (a.score < b.score) ? 1 : -1)
-            data: data
           })
-   
     }
+
+
     render(){
 
-       
- 
         return(
             <div >
-                <Button circular size='medium' primary icon='plus' onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
-                <Card.Group>
-                    <Categories image={this.state.data} scores={this.state.scores}/>
-                </Card.Group>
+                    <Card.Group>
+                        <Button circular size='medium' primary icon='plus' onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
+                        {this.state.user.categories.map(cate => <Categories cate={cate}/>)}
+                    </Card.Group>
             </div>
         )
     }
