@@ -83,18 +83,27 @@ export default class CategoryCreation extends React.Component{
             if(info.event === "success"){
                 this.setState({imgUrl: info.info.url}) 
 
-            fetch('http://localhost:3000/api/v1/categories',{
+            fetch('http://localhost:3000/api/v1/visualRecognition',{
             method: "POST",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                imgUrl: info.info.url
+                    imgUrl: info.info.url
                 })
             })
             .then(res=>res.json()).then(data => {
            
      
-            this.handleFetchResponse(data)})
-            }
+            this.handleFetchResponse(data)}
+            ).then(fetch('http://localhost:3000/api/v1/visualRecognition',{
+                method: "POST",
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify({
+                        imgUrl: info.info.url
+                    })
+                })
+            )
+            
+        }
     
                 }
             });
