@@ -1,7 +1,3 @@
-// import CLOUDNAME from '../../inventory'
-// import UPLOADPRESET from '../../inventory'
-
-
 import React from 'react'
 import { Input, Modal, Button, Dropdown, Message} from '../../node_modules/semantic-ui-react'
 
@@ -21,7 +17,11 @@ export default class CategoryCreation extends React.Component{
             open: false,
             dimmer: "",
             displayOgLanguage: "Select a language",
-            displayTgLanguage: "Select a language"
+            displayTgLanguage: "Select a language",
+            selectedWord: "",
+            listOfWords:[],
+            listOfInitalWords:[],
+            translatedWord: []
         
         }
     }
@@ -30,15 +30,8 @@ export default class CategoryCreation extends React.Component{
         window.cloudinary.openUploadWidget({
            cloudName: "translateme",
            uploadPreset: "qks45ycm",
-        inlineContainer: "#lewidget",
-           sources: [
-               "local",
-               "dropbox",
-               "camera",
-               "facebook",
-               "instagram",
-               "url"
-           ],
+           inlineContainer: "#lewidget",
+           sources: ["local","dropbox","camera","facebook","instagram","url"],
            showAdvancedOptions: false,
            cropping: true,
            upload: false,
@@ -48,77 +41,67 @@ export default class CategoryCreation extends React.Component{
            multiple: true,
            showUploadMoreButton: false,
            defaultSource: "local",
-           styles: {
-               palette: {
-                   window: "#F5F5F5",
-                   sourceBg: "#FFFFFF",
-                   windowBorder: "#90a0b3",
-                   tabIcon: "#0094c7",
-                   inactiveTabIcon: "#69778A",
-                   menuIcons: "#0094C7",
-                   link: "#53ad9d",
-                   action: "#8F5DA5",
-                   inProgress: "#0194c7",
-                   complete: "#53ad9d",
-                   error: "#c43737",
-                   textDark: "#000000",
-                   textLight: "#FFFFFF"
-               },
-               fonts: {
-                   default: null,
-                   "'IBM Plex Sans', sans-serif": {
-                       url: "https://fonts.googleapis.com/css?family=IBM+Plex+Sans",
-                       active: true
-                   }
-               }
-               
-            }
-            
+           styles: { palette: {window: "#F5F5F5",sourceBg: "#FFFFFF",windowBorder: "#90a0b3",tabIcon: "#0094c7",inactiveTabIcon: "#69778A",menuIcons: "#0094C7",link: "#53ad9d",action: "#8F5DA5",inProgress: "#0194c7",complete: "#53ad9d",error: "#c43737",textDark: "#000000",textLight: "#FFFFFF"},
+               fonts: {default: null, "'IBM Plex Sans', sans-serif": {url: "https://fonts.googleapis.com/css?family=IBM+Plex+Sans",active: true}}}
         },
-       
         (err, info) => {
           if (!err) {   
-            
-            console.log("Upload Widget event - ", info);
+           console.log("Upload Widget event - ", info);
             if(info.event === "success"){
-                this.setState({imgUrl: info.info.url}) 
-
+            this.setState({imgUrl: info.info.url}) 
             fetch('http://localhost:3000/api/v1/visualRecognition',{
             method: "POST",
             headers: {"Content-type": "application/json"},
             body: JSON.stringify({
-                    imgUrl: info.info.url
+                imgUrl: info.info.url,
+                oglanguage: this.state.oglanguage})}).then(res=>res.json()).then(data => {
+                   
+                    this.handleFetchResponse(data)})}}
+        });
+    }
+
+
+        handleTranslation=()=>{
+            fetch('http://localhost:3000/api/v1/translate',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                    oglanguage: this.state.oglanguage,
+                    tglanguage: this.state.tglanguage,
+                    selectedWord: this.state.selectedWord
                 })
-            })
-            .then(res=>res.json()).then(data => {
-           
+            }).then(resp => resp.json()).then(data =>{this.setState({translatedWord: data})})
+        }
      
-            this.handleFetchResponse(data)}
-            ).then(fetch('http://localhost:3000/api/v1/visualRecognition',{
-                method: "POST",
-                headers: {"Content-type": "application/json"},
-                body: JSON.stringify({
-                        imgUrl: info.info.url
-                    })
-                })
-            )
-            
-        }
-    
-                }
-            });
-         
-        }
+
         handleFetchResponse=(data)=>{
-            let t = this
-           if(data){
+            debugger
+            if(data.translation){
+            let newarr = []
+            let array = data.translation
+            for(let i=0;i<array.length; i++){
+            newarr.push(array[i].translations[0].translation)
+            }
             this.setState({ 
                     dimmer: 'blurring', 
                     open: true,
-                    response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9), //.sort((a, b) => (a.score < b.score) ? 1 : -1)
-                })}
-                // debugger
+                    response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9),
+                    listOfWords: data.arrOfRes, //.sort((a, b) => (a.score < b.score) ? 1 : -1)
+                    listOfInitalWords: newarr
+            })
+            }else{
+            this.setState({ 
+                dimmer: 'blurring', 
+                open: true,
+                response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9),
+                listOfWords: data.arrOfRes, //.sort((a, b) => (a.score < b.score) ? 1 : -1)
+                listOfInitalWords: data.arrOfRes
+                })
+            }
         }
+
+
+        
         handleTitle=(e)=>{
             this.setState({
                 title: e.currentTarget.value 
@@ -136,7 +119,13 @@ export default class CategoryCreation extends React.Component{
             this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })}    
         
         close = () => this.setState({ open: false })
-
+        
+        handleWordToTranslate=(e)=>{
+            
+            this.setState({
+                selectedWord: e.currentTarget.children[0].textContent
+            })
+        }
 
     render(){
         const { value } = this.state
@@ -156,15 +145,11 @@ export default class CategoryCreation extends React.Component{
                             icon='world'
                             options={languages}
                             search
-                            text={this.state.displayOgLanguage}
+                            text={this.state.displayTgLanguage}
                             />
-
-
-
-                     {this.state.response.map(info =>   <Message info>
-                            <Message.Header>{info.class}</Message.Header>
-                            <p>{info.score}</p>
-                            </Message>)}
+                       {this.state.listOfInitalWords.map(info =>   <Message raised onClick={this.handleWordToTranslate} info>
+                            <Message.Header>{info}</Message.Header>
+                         </Message>)}
 
                         </Modal.Content>
 
@@ -177,8 +162,8 @@ export default class CategoryCreation extends React.Component{
                             positive
                             icon='checkmark'
                             labelPosition='right'
-                            content="Create"
-                            onClick={this.close}
+                            content="Translate"
+                            onClick={this.handleTranslation}
                             />
                         </Modal.Actions>
                         </Modal>
@@ -193,7 +178,7 @@ export default class CategoryCreation extends React.Component{
                             icon='world'
                             options={languages}
                             search
-                            text={this.state.displayTgLanguage}
+                            text={this.state.displayOgLanguage}
                             />
                     <Input onChange={this.handleTitle} label='Title' placeholder='Title' />
                    

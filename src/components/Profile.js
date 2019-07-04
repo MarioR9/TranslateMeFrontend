@@ -2,7 +2,7 @@
 // import UPLOADPRESET from '../../inventory'
 
 import React from '../../node_modules/react'
-import { Card, Button } from '../../node_modules/semantic-ui-react'
+import { Card } from '../../node_modules/semantic-ui-react'
 import Categories from './Categories';
 
 export default class Profile extends React.Component{
@@ -23,7 +23,7 @@ export default class Profile extends React.Component{
         return(
             <div >
                     <Card.Group>
-                    <Card raised color='red' image="border.jpg" onClick={()=>{console.log('clicked')}}/>
+                    <Card raised color='red' image="border.jpg" onClick={this.props.handleCreateCategory}/>
                         {this.state.user.categories.map(cate => <Categories handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
             </div>
