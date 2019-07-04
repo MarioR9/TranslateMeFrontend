@@ -1,7 +1,7 @@
 import React from 'react'
-import { Input, Modal, Button, Dropdown, Message} from '../../node_modules/semantic-ui-react'
+import { Input, Modal, Button, Dropdown, Message, Card} from '../../node_modules/semantic-ui-react'
 
-let languages = [{key:'Afrikaans',text:'Afrikaans',value: "af"},{key:'Albanian',text:'Albanian', value: "sq"},{key:'Arabic',text:'Arabic', value: "ar"},{key:'Armenian',text:'Armenian', value: "hy"},{key:'Azerbaijani',text:'Azerbaijani', value: "az"},{key:'Bashkir',text:'Bashkir', value: "ba"},{key:'Basque',text:'Basque', value: "eu"},{key:'Belarusian',text:'Belarusian', value: "be"},{key:'Bengali',text:'Bengali', value: "bn"},{key:'Bosnian',text:'Bosnian', value: "bs"},{key:'Bulgarian',text:'Bulgarian', value: "bg"},{key:'Central_Khmer',text:'Central_Khmer', value: "km"},{key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},{key:'Chinese_Traditional',text:'Chinese_Traditional',value: "TW"},{key:'Chuvash',text:'Chuvash',value:"cv"},{key:'Czech',text:'Chuvash', value:"cv"},{key:'Danish',text:'Danish', value: "da"},{key:'Dutch',text:'Dutch', value: "nl"},{key:'English',text:'English', value: "en"},{key:'Esperanto',text:'Esperanto', value: "eo"},{key:'Estonian',text:'Estonian', value: "et"},{key:'Finnish',text:'Finnish', value: "fi"},{key:'French',text:'French', value: "fr"},{key:'Georgian',text:'Georgian', value: "ka"},{key:'German',text:'German', value: "de"},{key:'Greek',text:'Greek', value: "el"},{key:'Gujarati',text:'Gujarati', value: "gu"},{key:'Haitian',text:'Haitian', value: "ht"},{key:'Hebrew',text:'Hebrew', value: "he"},{key:'Hindi',text:'Hindi', value: "hi"},{key:'Hungarian',text:'Hungarian', value: "hu"},{key:'Icelandic',text:'Icelandic', value: "is"},{key:'Indonesian',text:'Indonesian', value: "id"},{key:'Italian',text:'Italian', value: "it"},{key:'Japanese',text:'Japanese', value: "ja"},{key:'Kazakh',text:'Kazakh', value: "kk"},{key:'Kirghiz',text:'Kirghiz', value: "ky"},{key:'Korean',text:'Korean', value: "ko"},{key:'Kurdish',text:'Kurdish', value: "ku"},{key:'Latvian',text:'Latvian', value: "lv"},{key:'Lithuanian',text:'Lithuanian', value: "lt"},{key:'Malayalam',text:'Malayalam', value: "ml"},{key:'Mongolian',text:'Mongolian', value: "mn"},{key:'Norwegia_Bokmal',text:'Norwegia_Bokmal', value: "nb"},{key:'Norwegian_Nynorsk',text:'Norwegian_Nynorsk', value: "nn"},{key:'Panjabi',text:'Panjabi', value: "pa"},{key:'Persian',text:'Persian', value: "fa"},{key:'Polish',text:'Polish', value: "pl"},{key:'Portuguese',text:'Portuguese', value: "pt"},{key:'Pushto',text:'Pushto', value: "ps"},{key:'Romanian',text:'Romanian', value: "ro"},{key:'Russian',text:'Russian', value: "ru"},{key:'Slovakian',text:'Slovakian', value: "sk"},{key:'Somali',text:'Somali', value: "so"},{key:'Spanish',text:'Spanish', value: "es"},{key:'Swedish',text:'Swedish', value: "sv"},{key:'Tamil',text:'Tamil', value: "ta"},{key:'Telugu',text:'Telugu', value: "te"},{key:'Turkish',text:'Turkish', value: "tr"},{key:'Ukrainian',text:'Ukrainian', value: "uk"},{key:'Urdu',text:'Urdu', value: "ur"},{key:'Vietnamese',text:'Vietnamese', value: "vi"}]
+let languages = [{key:'Afrikaans',text:'Afrikaans',value: "af"},{key:'Albanian',text:'Albanian', value: "sq"},{key:'Arabic',text:'Arabic', value: "ar"},{key:'Armenian',text:'Armenian', value: "hy"},{key:'Azerbaijani',text:'Azerbaijani', value: "az"},{key:'Bashkir',text:'Bashkir', value: "ba"},{key:'Basque',text:'Basque', value: "eu"},{key:'Belarusian',text:'Belarusian', value: "be"},{key:'Bengali',text:'Bengali', value: "bn"},{key:'Bosnian',text:'Bosnian', value: "bs"},{key:'Bulgarian',text:'Bulgarian', value: "bg"},{key:'Central_Khmer',text:'Central_Khmer', value: "km"},{key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},{key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},{key:'Chuvash',text:'Chuvash',value:"cv"},{key:'Czech',text:'Chuvash', value:"cv"},{key:'Danish',text:'Danish', value: "da"},{key:'Dutch',text:'Dutch', value: "nl"},{key:'English',text:'English', value: "en"},{key:'Esperanto',text:'Esperanto', value: "eo"},{key:'Estonian',text:'Estonian', value: "et"},{key:'Finnish',text:'Finnish', value: "fi"},{key:'French',text:'French', value: "fr"},{key:'Georgian',text:'Georgian', value: "ka"},{key:'German',text:'German', value: "de"},{key:'Greek',text:'Greek', value: "el"},{key:'Gujarati',text:'Gujarati', value: "gu"},{key:'Haitian',text:'Haitian', value: "ht"},{key:'Hebrew',text:'Hebrew', value: "he"},{key:'Hindi',text:'Hindi', value: "hi"},{key:'Hungarian',text:'Hungarian', value: "hu"},{key:'Icelandic',text:'Icelandic', value: "is"},{key:'Indonesian',text:'Indonesian', value: "id"},{key:'Italian',text:'Italian', value: "it"},{key:'Japanese',text:'Japanese', value: "ja"},{key:'Kazakh',text:'Kazakh', value: "kk"},{key:'Kirghiz',text:'Kirghiz', value: "ky"},{key:'Korean',text:'Korean', value: "ko"},{key:'Kurdish',text:'Kurdish', value: "ku"},{key:'Latvian',text:'Latvian', value: "lv"},{key:'Lithuanian',text:'Lithuanian', value: "lt"},{key:'Malayalam',text:'Malayalam', value: "ml"},{key:'Mongolian',text:'Mongolian', value: "mn"},{key:'Norwegia_Bokmal',text:'Norwegia_Bokmal', value: "nb"},{key:'Norwegian_Nynorsk',text:'Norwegian_Nynorsk', value: "nn"},{key:'Panjabi',text:'Panjabi', value: "pa"},{key:'Persian',text:'Persian', value: "fa"},{key:'Polish',text:'Polish', value: "pl"},{key:'Portuguese',text:'Portuguese', value: "pt"},{key:'Pushto',text:'Pushto', value: "ps"},{key:'Romanian',text:'Romanian', value: "ro"},{key:'Russian',text:'Russian', value: "ru"},{key:'Slovakian',text:'Slovakian', value: "sk"},{key:'Somali',text:'Somali', value: "so"},{key:'Spanish',text:'Spanish', value: "es"},{key:'Swedish',text:'Swedish', value: "sv"},{key:'Tamil',text:'Tamil', value: "ta"},{key:'Telugu',text:'Telugu', value: "te"},{key:'Turkish',text:'Turkish', value: "tr"},{key:'Ukrainian',text:'Ukrainian', value: "uk"},{key:'Urdu',text:'Urdu', value: "ur"},{key:'Vietnamese',text:'Vietnamese', value: "vi"}]
 
 export default class CategoryCreation extends React.Component{
     constructor(){
@@ -15,6 +15,7 @@ export default class CategoryCreation extends React.Component{
             imgUrl: "",
             active: false,
             open: false,
+            open2: false,
             dimmer: "",
             displayOgLanguage: "Select a language",
             displayTgLanguage: "Select a language",
@@ -70,12 +71,13 @@ export default class CategoryCreation extends React.Component{
                     tglanguage: this.state.tglanguage,
                     selectedWord: this.state.selectedWord
                 })
-            }).then(resp => resp.json()).then(data =>{this.setState({translatedWord: data})})
+            }).then(resp => resp.json()).then(data =>{
+                debugger
+                this.setState({translatedWord: data.translation.translations[0].translation, open2: true})})
         }
      
 
         handleFetchResponse=(data)=>{
-            debugger
             if(data.translation){
             let newarr = []
             let array = data.translation
@@ -95,44 +97,75 @@ export default class CategoryCreation extends React.Component{
                 open: true,
                 response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9),
                 listOfWords: data.arrOfRes, //.sort((a, b) => (a.score < b.score) ? 1 : -1)
-                listOfInitalWords: data.arrOfRes
-                })
+                listOfInitalWords: data.arrOfRes})
             }
         }
 
 
         
         handleTitle=(e)=>{
-            this.setState({
-                title: e.currentTarget.value 
-            })
+            this.setState({title: e.currentTarget.value})
         }
-        handleChangeOglanguage = (e) => {
-            
+
+        handleChangeOglanguage = (e) => {    
           let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
-            this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
+        this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
         }
             
         handleChangeTglanguage = (e) => {
             let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+        this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })
+        }    
 
-            this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })}    
-        
+        open = () => this.setState({ open: true })
+
         close = () => this.setState({ open: false })
-        
+
+        open2 = () => this.setState({ open2: true })
+
         handleWordToTranslate=(e)=>{
-            
-            this.setState({
-                selectedWord: e.currentTarget.children[0].textContent
-            })
+        this.setState({selectedWord: e.currentTarget.children[0].textContent})
         }
 
     render(){
-        const { value } = this.state
-        const { open, dimmer } = this.state
+        const { open, dimmer,open2 } = this.state
         return(
             <div>
                 <div>
+                    <Modal dimmer={dimmer} open={open2} onClose={this.close}>
+                        <Modal.Header>All Images</Modal.Header>
+                        <Modal.Content >
+                        <Card raised image={this.state.imgUrl} />
+                        
+                        <Message raised class="ui floating message" positive>
+                            <Message.Header>{this.state.translatedWord}</Message.Header>
+                         </Message>
+
+                        </Modal.Content>
+
+
+                        <Modal.Actions>
+                     
+                            <Button
+                            color='red'
+                            positive
+                            icon='checkmark'
+                            labelPosition='center'
+                            content="Continue"
+                            onClick={this.handleTranslation}
+                            />
+                        </Modal.Actions>
+                        
+                        </Modal>
+
+
+
+
+
+
+
+                
+
                         <Modal dimmer={dimmer} open={open} onClose={this.close}>
                         <Modal.Header>All Images</Modal.Header>
                         <Modal.Content >
@@ -147,7 +180,7 @@ export default class CategoryCreation extends React.Component{
                             search
                             text={this.state.displayTgLanguage}
                             />
-                       {this.state.listOfInitalWords.map(info =>   <Message raised onClick={this.handleWordToTranslate} info>
+                       {this.state.listOfInitalWords.map(info =>   <Message class="ui floating message" raised onClick={this.handleWordToTranslate} info>
                             <Message.Header>{info}</Message.Header>
                          </Message>)}
 
@@ -166,6 +199,7 @@ export default class CategoryCreation extends React.Component{
                             onClick={this.handleTranslation}
                             />
                         </Modal.Actions>
+                        
                         </Modal>
                     </div>
                     
