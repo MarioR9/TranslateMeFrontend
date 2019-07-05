@@ -42,8 +42,7 @@ export default class Profile extends React.Component{
     }
     render(){
         const { open, dimmer } = this.state
-        // let t = this
-        // debugger
+        
         return(
             <div >
               <Modal dimmer={dimmer} open={open} onClose={this.close}>
@@ -77,7 +76,7 @@ export default class Profile extends React.Component{
             </Modal>
                     <Card.Group>
                     <Card raised color='red' image="border.jpg" onClick={this.show('blurring')}/>
-                        {this.props.handleCateImages().categories.map(cate => <Categories handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
+                        {this.props.currentUserCategories.map(cate => <Categories handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
             </div>
         )

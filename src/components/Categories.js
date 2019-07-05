@@ -19,7 +19,7 @@ export default class Categories extends React.Component{
     handleImageCollection=()=>{
         this.props.cate.images.map(img=> img).map(img=>img)
     }
-
+    
 
     render(){
   const { open, dimmer } = this.state
@@ -27,37 +27,7 @@ export default class Categories extends React.Component{
 //   debugger
         return(
             <div> 
-                {/* <div>
-                        <Modal dimmer={dimmer} open={open} onClose={this.close}>
-                        <Modal.Header>All Images</Modal.Header>
-                        <Modal.Content >
-                            <Card.Group>
-                            {this.props.cate.images.map(img=> img).map(img =><Card raised >
-                                <Image src={img.url}/>
-                                <Card.Content>
-                                <Card.Header>{img.input}</Card.Header>
-                                <Card.Description>
-                                 Target-language: {img.tarlanguage}
-                                 </Card.Description>
-                                </Card.Content>   
-                            </Card>)}
-                            </Card.Group>
-                        </Modal.Content>
-                        <Modal.Actions>
-                            <Button color='black' onClick={this.close}>
-                            Nope
-                            </Button>
-                            <Button
-                            positive
-                            icon='checkmark'
-                            labelPosition='right'
-                            content="Create"
-                            onClick={this.close}
-                            />
-                        </Modal.Actions>
-                        </Modal>
-                    </div>
-              */}
+                
                 
                 <Card id={this.props.cate.id} onClick={this.props.handleImagePage} raised className="card" color='red' >
                     <Image src={this.props.cate.url}/>
@@ -67,12 +37,12 @@ export default class Categories extends React.Component{
                         {this.props.cate.language}
                     </Card.Description>
                 </Card.Content>
-                <Card.Content extra>
+                {/* <Card.Content extra>
                     <a>
                         <Icon name='user' />
-                        {this.props.cate.images.length} images
+                        {this.props.handleCateImages().categories.map.length} images
                     </a>
-                </Card.Content>
+                </Card.Content> */}
                 </Card> 
             </div>
         )

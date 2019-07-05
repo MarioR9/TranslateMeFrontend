@@ -43,18 +43,6 @@ export default class AllCategory extends React.Component{
             </div>
              )
 
-
-
-
-
-    //   t.string :input
-    //   t.string :og_language
-    //   t.string :output
-    //   t.string :tr_language
-    //   t.integer :category_id
-    //   t.string :url
-
-    
         return(
             <div>
                     <div>

@@ -9,8 +9,9 @@ import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
 // import { Route, Switch } from "react-router-dom";
 // import {BrowserRouter} from 'react-router-dom'
-import Images from './components/Images';
+import Images from './components/Images'
 import CategoryCreation from './components/CategoryCreation'
+import ImagesBack from './components/ImagesBack'
 
 export default class App extends React.Component {
   constructor(){
@@ -24,6 +25,7 @@ export default class App extends React.Component {
         createCategoryPage: false, 
         loginPage: true,
         imagesPage: false,
+        imagesBackPage: false,
         listOfCategories: [],
         token: '',
         currentUser: [],
@@ -111,8 +113,12 @@ export default class App extends React.Component {
         profilePage: true,
         token: data.token,
         currentUser: data.user,
-        currentUserCategories: data.categories
-      })
+        currentUserCategories: data.categories,
+        })
+    fetch('http://localhost:3000/api/v1/categories')
+    .then(res=>res.json()).then(data => {
+    this.setState({listOfCategories: data})})    
+        
     }else{
       alert(data.message)
     }
@@ -123,12 +129,23 @@ export default class App extends React.Component {
        imagesPage:true
     })
   }
-  handleCurrentCategories=(data)=>{
 
+  handleImageBackPage=()=>{
     this.setState({
-      currentCategories: data
+       imagesPage: !this.state.imagesPage,
+       imagesBackPage:!this.state.imagesBackPage
     })
   }
+
+
+
+
+  // handleCurrentCategories=(data)=>{
+
+  //   this.setState({
+  //     currentCategories: data
+  //   })
+  // }
   handleCreateCategory=()=>{
     this.setState({
       profilePage: false,
@@ -143,7 +160,7 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser/>
     }else if (this.state.createCategoryPage === true){
@@ -151,7 +168,9 @@ export default class App extends React.Component {
     }else if (this.state.categoriesPage === true){
       return <Categories />
     }else if (this.state.imagesPage === true){
-      return <Images allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Images handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+    }else if (this.state.imagesBackPage === true){
+      return <ImagesBack handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }
   }
 
