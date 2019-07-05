@@ -1,6 +1,6 @@
 import React from '../../node_modules/react'
-import { Card, Header,Image, Icon, Modal, Button } from '../../node_modules/semantic-ui-react'
-import Images from './Images'
+import { Card,Image, Icon, Modal, Button } from '../../node_modules/semantic-ui-react'
+
 
 export default class Categories extends React.Component{
     constructor(props){
@@ -23,9 +23,11 @@ export default class Categories extends React.Component{
 
     render(){
   const { open, dimmer } = this.state
+//   let t = this 
+//   debugger
         return(
             <div> 
-                <div>
+                {/* <div>
                         <Modal dimmer={dimmer} open={open} onClose={this.close}>
                         <Modal.Header>All Images</Modal.Header>
                         <Modal.Content >
@@ -35,13 +37,7 @@ export default class Categories extends React.Component{
                                 <Card.Content>
                                 <Card.Header>{img.input}</Card.Header>
                                 <Card.Description>
-                                 Og-language: {img.og_language}
-                                </Card.Description>
-                                <Card.Description>
-                                 Target-language: {img.tr_language}
-                                 </Card.Description>
-                                 <Card.Description>
-                                 output: {img.output}
+                                 Target-language: {img.tarlanguage}
                                  </Card.Description>
                                 </Card.Content>   
                             </Card>)}
@@ -61,9 +57,9 @@ export default class Categories extends React.Component{
                         </Modal.Actions>
                         </Modal>
                     </div>
-             
+              */}
                 
-                <Card id={this.props.cate.id} onClick={this.show('blurring')} raised className="card" color='red' >
+                <Card id={this.props.cate.id} onClick={this.props.handleImagePage} raised className="card" color='red' >
                     <Image src={this.props.cate.url}/>
                 <Card.Content>
                     <Card.Header>{this.props.cate.title}</Card.Header>

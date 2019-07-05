@@ -9,7 +9,7 @@ import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
 // import { Route, Switch } from "react-router-dom";
 // import {BrowserRouter} from 'react-router-dom'
-// import Images from './components/Images';
+import Images from './components/Images';
 import CategoryCreation from './components/CategoryCreation'
 
 export default class App extends React.Component {
@@ -29,8 +29,7 @@ export default class App extends React.Component {
         currentUser: [],
         allUsers: [],
         currentCategories: [],
-        
-
+        currentUserCategories: []
         }
   }
   componentDidMount=()=>{
@@ -40,6 +39,9 @@ export default class App extends React.Component {
     fetch('http://localhost:3000/api/v1/users')
         .then(res=>res.json()).then(data => {
         this.setState({allUsers: data})})
+  }
+  handleCateImages=()=>{
+   return this.state.allUsers.find(user => user.id === this.state.currentUser.id)
   }
 
   handleNavLogout=()=>{
@@ -108,7 +110,8 @@ export default class App extends React.Component {
         loginPage: false,
         profilePage: true,
         token: data.token,
-        currentUser: data.user
+        currentUser: data.user,
+        currentUserCategories: data.categories
       })
     }else{
       alert(data.message)
@@ -140,13 +143,15 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser/>
     }else if (this.state.createCategoryPage === true){
       return <CategoryCreation/>
     }else if (this.state.categoriesPage === true){
       return <Categories />
+    }else if (this.state.imagesPage === true){
+      return <Images allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }
   }
 
