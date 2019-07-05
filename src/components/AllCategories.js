@@ -27,7 +27,25 @@ export default class AllCategory extends React.Component{
             active: !this.state.active
         })
     }
+
+    handleCategoryDup=(e)=>{
+        debugger
+        fetch('http://localhost:3000/api/v1/dupCategories',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                    userId: this.props.currentUser.id,
+                    cateId: e.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.id,
+
+                })
+            }).then(resp =>resp.json()).then(data =>console.log(data))
+    }
+
     render(){
+
+
+        // let t= this 
+        // debugger
         const { open, dimmer } = this.state
         const { active } = this.state
         const content = (
@@ -38,7 +56,7 @@ export default class AllCategory extends React.Component{
                 <Header as='h2' inverted>
                 {this.props.category.language}
                 </Header>
-                <Button circular size='huge' onClick={this.show('blurring')} primary icon='plus' />
+                <Button circular size='huge' onClick={this.handleCategoryDup} primary icon='plus' />
                 <Button circular size='huge' icon='heart outline' />
             </div>
              )

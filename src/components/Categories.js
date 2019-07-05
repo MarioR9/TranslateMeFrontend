@@ -7,7 +7,8 @@ export default class Categories extends React.Component{
         super(props)
         this.state={
             active: false,
-            open: false
+            open: false,
+            cateId: 0
         }
     }
     show = dimmer => (e) => {
@@ -19,6 +20,7 @@ export default class Categories extends React.Component{
     handleImageCollection=()=>{
         this.props.cate.images.map(img=> img).map(img=>img)
     }
+    
     
 
     render(){
