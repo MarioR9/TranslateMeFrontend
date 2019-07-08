@@ -6,7 +6,7 @@ let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
                  {key:'Catalan',text:'Catalan', value: "ca"},
                  {key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},
                  {key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},                
-                 {key:'Czech',text:'Chuvash', value:"cv"},
+                 {key:'Czech',text:'Chuvash', value:"cs"},
                  {key:'Danish',text:'Danish', value: "da"},
                  {key:'Dutch',text:'Dutch', value: "nl"},
                  {key:'English',text:'English', value: "en"},
@@ -27,6 +27,33 @@ let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
                  {key:'Spanish',text:'Spanish', value: "es"},
                  {key:'Swedish',text:'Swedish', value: "sv"},                
                  {key:'Turkish',text:'Turkish', value: "tr"}]
+
+                 
+let languages2 = {'ar':'Arabic',
+                 "ca":'Catalan',
+                 "zh":'Chinese_Simplified',
+                 "zh-Tw":'Chinese_Traditional',                
+                 "cs":'Czech',
+                 "da":'Danish', 
+                 "nl": 'Dutch',
+                 "en":'English',
+                 "fi":'Finnish',
+                 "fr": 'French',          
+                 "de":'German',
+                 "el":'Greek',          
+                 "he":'Hebrew',
+                 "hi":'Hindi',
+                 "hu": 'Hungarian',                
+                 "it":'Italian',
+                 "ja": 'Japanese',              
+                 "ko":'Korean',               
+                 "nb": 'Norwegia_Bokmal',           
+                 "pl":'Polish',
+                 "pt":'Portuguese',                
+                 "ru":'Russian',               
+                 "es":'Spanish',
+                 "sv":'Swedish',                
+                 "tr":'Turkish'}
 
                 
 
@@ -101,7 +128,7 @@ export default class Images extends React.Component{
                     this.handleFetchResponse(data)})}}
         });
     }
-
+  
 
     handleTranslation=()=>{
         fetch('http://localhost:3000/api/v1/translate',{
@@ -180,8 +207,24 @@ export default class Images extends React.Component{
       }
             let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
           this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
-        
+          fetch('http://localhost:3000/api/v1/findModel',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                    oglanguage: ogLan
+                })
+            }).then(resp=>resp.json()).then(data=>{debugger})
     }
+    // handleTargetLanguage=(data)=>{
+        // let target = data.models.models.map(lang => lang.target)
+        // let arr = []
+        // for(let i =0; i < target.length; i++){
+        //     if(languages[i].value === target[i]){
+        //     arr.push(languages[i])
+        //     }
+        // }
+        // return arr
+    // }
     
     handleChangeTglanguage = (e) => {
         if(e.currentTarget.textContent === "Select a languageAfrikaansAlbanianArabicArmenianAzerbaijaniBashkirBasqueBelarusianBengaliBosnianBulgarianCentral_KhmerChinese_SimplifiedChinese_TraditionalChuvashChuvashDanishDutchEnglishEsperantoEstonianFinnishFrenchGeorgianGermanGreekGujaratiHaitianHebrewHindiHungarianIcelandicIndonesianItalianJapaneseKazakhKirghizKoreanKurdishLatvianLithuanianMalayalamMongolianNorwegia_BokmalNorwegian_NynorskPanjabiPersianPolishPortuguesePushtoRomanianRussianSlovakianSomaliSpanishSwedishTamilTeluguTurkishUkrainianUrduVietnamese"){
