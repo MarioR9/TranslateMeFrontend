@@ -29,7 +29,7 @@ export default class AllCategory extends React.Component{
     }
 
     handleCategoryDup=(e)=>{
-        debugger
+      
         fetch('http://localhost:3000/api/v1/dupCategories',{
             method: "POST",
             headers: {"Content-type": "application/json"},
@@ -38,7 +38,7 @@ export default class AllCategory extends React.Component{
                     cateId: e.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.id,
 
                 })
-            }).then(resp =>resp.json()).then(data =>console.log(data))
+            }).then(resp =>resp.json()).then(data =>{this.props.handleHomePageToProfile(data)})
     }
 
     render(){

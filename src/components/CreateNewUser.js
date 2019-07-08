@@ -22,8 +22,8 @@ export default class CreateNewUser extends React.Component{
                 })
             })
             .then(res=>res.json()).then(data => {
-                // debugger
-     
+             
+            this.props.handleToken(data)    
             console.log(data)})    
     }
     handleUsername=(e)=>{

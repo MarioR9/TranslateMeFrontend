@@ -3,14 +3,11 @@ import './App.css';
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Profile from './components/Profile'
-import AllCategories from './components/AllCategories';
-import Categories from './components/Categories'
 import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
 // import { Route, Switch } from "react-router-dom";
 // import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
-import CategoryCreation from './components/CategoryCreation'
 import ImagesBack from './components/imagesBack'
 
 export default class App extends React.Component {
@@ -33,7 +30,8 @@ export default class App extends React.Component {
         currentCategories: [],
         currentUserCategories: [],
         currentImages: [],
-        cateId: 0
+        cateId: 0,
+        currentPage: []
         }
   }
   componentDidMount=()=>{
@@ -116,6 +114,7 @@ export default class App extends React.Component {
   }
 
   handleToken=(data)=>{
+
     if(!data.message){
       this.setState({
         loginPage: false,
@@ -124,6 +123,8 @@ export default class App extends React.Component {
         currentUser: data.user,
         currentUserCategories: data.categories,
         })
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('username', data.user.username)
         fetch('http://localhost:3000/api/v1/findCategories',{
           method: "POST",
           headers: {"Content-type": "application/json"},
@@ -134,7 +135,10 @@ export default class App extends React.Component {
           .then(res=>res.json()).then(data => {
               // debugger
           console.log(data)
-          this.setState({currentImages: data})    
+          this.setState({currentImages: data})  
+          fetch('http://localhost:3000/api/v1/categories')
+          .then(res=>res.json()).then(data => {
+          this.setState({listOfCategories: data})})  
       })   
         
     }else{
@@ -147,6 +151,16 @@ export default class App extends React.Component {
        imagesPage:true
     })
   }
+  handleHomePageToProfile=(data)=>{
+    if(data.message){
+      alert(data.message)
+    }else{
+    this.setState({
+        homePage: false,
+       profilePage :true
+    })
+  }
+  }
 
   handleImageBackPage=()=>{
     this.setState({
@@ -156,14 +170,14 @@ export default class App extends React.Component {
   }
 
 
-
-
   // handleCurrentCategories=(data)=>{
 
   //   this.setState({
   //     currentCategories: data
   //   })
   // }
+
+
   handleCreateCategory=()=>{
     this.setState({
       profilePage: false,
@@ -171,16 +185,32 @@ export default class App extends React.Component {
     })
   }
 
+  // handleOff=()=>{
+  //     if (this.state.homePage === true){
+  //       return <Home currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
+  //     }else if (this.state.profilePage === true){
+  //       return <Profile listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+  //     }else if (this.state.CreateNewUserPage === true){
+  //       return <CreateNewUser/>
+  //     }else if (this.state.imagesPage === true){
+  //       return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+  //     }else if (this.state.imagesBackPage === true){
+  //       return <ImagesBack currentImages={this.state.currentImages} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      
+  //   }
+  // }
+
 
   handleCurrentPage=()=>{
+    
     if(this.state.loginPage === true){
       return <Login handleToken={this.handleToken} handleCreateNewUser={this.handleCreateNewUser}/>
     }else if (this.state.homePage === true){
-      return <Home currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
+      return <Home handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
       return <Profile listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
-      return <CreateNewUser/>
+      return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
       return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.imagesBackPage === true){

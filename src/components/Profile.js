@@ -35,7 +35,7 @@ export default class Profile extends React.Component{
             title: this.state.title,
             language: this.state.language,
             userId: this.props.currentUser.id,
-            url: "https://res.cloudinary.com/translateme/image/upload/v1562301192/DefaultPics/ktigb3cc7ixw3kydp9te.png"
+            url: "https://res.cloudinary.com/translateme/image/upload/v1562562578/DefaultPics/luc79f4qxczxhzenag6y.png"
             })
         })
         .then(res=>res.json()).then(data => {
@@ -81,7 +81,7 @@ export default class Profile extends React.Component{
                 </Modal.Actions>
             </Modal>
                     <Card.Group>
-                    <Card raised color='red' image="border.jpg" onClick={this.show('blurring')}/>
+                    <Card raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
                         {this.props.currentUserCategories.map(cate => <Categories  handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
             </div>

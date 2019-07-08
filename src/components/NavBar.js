@@ -11,7 +11,7 @@ export default class NavBar extends React.Component{
           <Router>
          <Menu stackable>
             <Menu.Item >
-              <img onClick={this.props.handleNavHome} src='https://react.semantic-ui.com/logo.png' />
+              <img onClick={this.props.handleNavHome} src='TestLogo.png' />
             </Menu.Item>
 
             <Menu.Item

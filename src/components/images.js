@@ -105,6 +105,7 @@ export default class Images extends React.Component{
                 cateId: this.props.cateId,
                })
             }).then(resp=>resp.json()).then(data => {
+              
                 this.setState({currentImages: data})}))
             
         })
