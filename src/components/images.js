@@ -110,6 +110,18 @@ export default class Images extends React.Component{
             
         })
     }
+    handleAddedImg=()=>{
+        fetch('http://localhost:3000/api/v1/findCategory',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                cateId: this.props.cateId,
+               })
+            }).then(resp=>resp.json()).then(data => {
+              
+                this.setState({currentImages: data})})
+        this.close()       
+    }
     handleFetchResponse=(data)=>{
         if(data.translation){
         let newarr = []
@@ -180,7 +192,7 @@ export default class Images extends React.Component{
                  icon='checkmark'
                  labelPosition='center'
                  content="Continue"
-                 onClick={this.close}
+                 onClick={this.handleAddedImg} //re-render new images 
                  />
              </Modal.Actions>          
             </Modal>
@@ -253,12 +265,6 @@ export default class Images extends React.Component{
          
            <Card id={img.id} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
                 <Image src={img.url}/>
-                <Card.Content>
-                    <Card.Header>{img.input}</Card.Header>
-                    <Card.Description>
-                        {img.tarlanguage}
-                    </Card.Description>
-                </Card.Content>
               
                 </Card>)}
           
