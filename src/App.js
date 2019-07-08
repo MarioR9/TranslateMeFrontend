@@ -111,7 +111,7 @@ export default class App extends React.Component {
   }
   handleImageRender=(data)=>{
     this.setState({
-      listOfCategories: data
+      currentImages: data
      })
   }
 
@@ -182,9 +182,9 @@ export default class App extends React.Component {
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser/>
     }else if (this.state.imagesPage === true){
-      return <Images currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.imagesBackPage === true){
-      return <ImagesBack handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <ImagesBack currentImages={this.state.currentImages} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }
   }
 

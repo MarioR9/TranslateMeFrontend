@@ -29,6 +29,17 @@ export default class Images extends React.Component{
         
         }
     }
+    componentDidMount=()=>{
+        fetch('http://localhost:3000/api/v1/findCategory',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                cateId: this.props.cateId,
+               })
+            }).then(resp=>resp.json()).then(data => {
+                this.setState({currentImages: data})})
+       
+      }
     
     showUploadWidget=()=> {
     
@@ -42,7 +53,6 @@ export default class Images extends React.Component{
            upload: false,
            uploader: false,
            showCompletedButton: true,
-           showCompletedButton: false,
            multiple: true,
            showUploadMoreButton: false,
            defaultSource: "local",
@@ -60,7 +70,7 @@ export default class Images extends React.Component{
             body: JSON.stringify({
                 imgUrl: info.info.url,
                 oglanguage: this.state.oglanguage})}).then(res=>res.json()).then(data => {
-              
+         
                     this.handleFetchResponse(data)})}}
         });
     }
@@ -88,13 +98,17 @@ export default class Images extends React.Component{
                 imgUrl: this.state.imgUrl,
                 cateId: this.props.cateId
             })
-        }).then(resp => resp.json()).then(data => {this.props.handleImageRender(data)})
+        }).then(fetch('http://localhost:3000/api/v1/findCategory',{
+            method: "POST",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                cateId: this.props.cateId,
+               })
+            }).then(resp=>resp.json()).then(data => {
+                this.setState({currentImages: data})}))
             
         })
     }
-
-
-
     handleFetchResponse=(data)=>{
         if(data.translation){
         let newarr = []
@@ -102,10 +116,11 @@ export default class Images extends React.Component{
         for(let i=0;i<array.length; i++){
         newarr.push(array[i].translations[0].translation)
         }
+        // debugger
         this.setState({ 
                 dimmer: 'blurring', 
                 open2: true,
-                response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9),
+                response: newarr,
                 listOfWords: data.arrOfRes, //.sort((a, b) => (a.score < b.score) ? 1 : -1)
                 listOfInitalWords: newarr
         })
@@ -113,7 +128,7 @@ export default class Images extends React.Component{
         this.setState({ 
             dimmer: 'blurring', 
             open2: true,
-            response: data.result.images[0].classifiers[0].classes.filter(img => img.score < 1.00 && img.score > 0.9),
+            response: data.arrOfRes,
             listOfWords: data.arrOfRes, //.sort((a, b) => (a.score < b.score) ? 1 : -1)
             listOfInitalWords: data.arrOfRes})
         }
@@ -122,89 +137,77 @@ export default class Images extends React.Component{
     handleChangeOglanguage = (e) => {    
         let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
       this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
-      }
+    }
           
-      handleChangeTglanguage = (e) => {
+    handleChangeTglanguage = (e) => {
           let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
       this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })
-      }    
-      handleWordToTranslate=(e)=>{
+    }    
+    handleWordToTranslate=(e)=>{
         this.setState({selectedWord: e.currentTarget.children[0].textContent})
-        }
-       
-        open =(e)=>{
+    }
+    open =(e)=>{
             this.setState({open: true})
-        }
+    }
 
-        close = () => this.setState({ open3: false , open2 :false, open: false })
+    close = () => this.setState({ open3: false , open2 :false, open: false })
 
-        open2 = () => this.setState({ open2: true })
+    open2 = () => this.setState({ open2: true })
     
-        open3 = () => this.setState({ open3: true })
+    open3 = () => this.setState({ open3: true })
     
 
 
     render(){
         const { open, dimmer,open2, open3 } = this.state
-        let t= this 
-        debugger
+//   let t = this 
+//   debugger
         return(
           <div>
-               <Modal dimmer={dimmer} open={open3} onClose={this.close}>
-                        <Modal.Header>All Images</Modal.Header>
-                        <Modal.Content >
-                        <Card raised image={this.state.imgUrl} />
-                        
-                        <Message raised class="ui floating message" positive>
-                            <Message.Header>{this.state.translatedWord}</Message.Header>
-                         </Message>
+             <Modal dimmer={dimmer} open={open3} onClose={this.close}>
+             <Modal.Header>All Images</Modal.Header>
+             <Modal.Content >
+             <Card raised image={this.state.imgUrl} />
+             <Message raised class="ui floating message" positive>
+                 <Message.Header>{this.state.translatedWord}</Message.Header>
+              </Message>
+             </Modal.Content>
+             <Modal.Actions>  
+                 <Button
+                 color='red'
+                 positive
+                 icon='checkmark'
+                 labelPosition='center'
+                 content="Continue"
+                 onClick={this.close}
+                 />
+             </Modal.Actions>          
+            </Modal>
 
-                        </Modal.Content>
+            <Modal dimmer={dimmer} open={open2} onClose={this.close}>
+             <Modal.Header>All Images</Modal.Header>
+             <Modal.Content >
+            
+            {this.state.response.map(info =>   <Message class="ui floating message" raised onClick={this.handleWordToTranslate} info>
+                 <Message.Header>{info}</Message.Header>
+              </Message>)}
 
-
-                        <Modal.Actions>
-                     
-                            <Button
-                            color='red'
-                            positive
-                            icon='checkmark'
-                            labelPosition='center'
-                            content="Continue"
-                            onClick={this.close}
-                            />
-                        </Modal.Actions>
-                        
-                </Modal>
-
-                <Modal dimmer={dimmer} open={open2} onClose={this.close}>
-                        <Modal.Header>All Images</Modal.Header>
-                        <Modal.Content >
-                       
-                       {this.state.listOfInitalWords.map(info =>   <Message class="ui floating message" raised onClick={this.handleWordToTranslate} info>
-                            <Message.Header>{info}</Message.Header>
-                         </Message>)}
-
-                        </Modal.Content>
+             </Modal.Content>
 
 
-                        <Modal.Actions>
-                            <Button color='black' onClick={this.close}>
-                            Nope
-                            </Button>
-                            <Button
-                            positive
-                            icon='checkmark'
-                            labelPosition='right'
-                            content="Translate"
-                            onClick={this.handleTranslation}
-                            />
-                        </Modal.Actions>
-                        
-                        </Modal>
-
-
-
-
+             <Modal.Actions>
+                 <Button color='black' onClick={this.close}>
+                 Nope
+                 </Button>
+                 <Button
+                 positive
+                 icon='checkmark'
+                 labelPosition='right'
+                 content="Translate"
+                 onClick={this.handleTranslation}
+                 />
+             </Modal.Actions>
+             </Modal>
 
               <Modal dimmer={dimmer} open={open} >
               <Modal.Header>Select a Photo</Modal.Header>
@@ -245,14 +248,14 @@ export default class Images extends React.Component{
          <Button raised circular primary onClick={this.open}>ADD new Image</Button>
           <Card.Group>
       
-           {this.props.currentImages.map(img =>  
+           {this.state.currentImages.map(img =>  
          
-           <Card id={img.images.map(x=>x.id)} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
-                <Image src={img.images.map(x =>x.url)}/>
+           <Card id={img.id} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
+                <Image src={img.url}/>
                 <Card.Content>
-                    <Card.Header>{img.images.map(x =>x.input)}</Card.Header>
+                    <Card.Header>{img.input}</Card.Header>
                     <Card.Description>
-                        {img.images.map(x=> x.tarlanguage)}
+                        {img.tarlanguage}
                     </Card.Description>
                 </Card.Content>
               

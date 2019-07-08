@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Card,Image, Icon, Modal, Button } from '../../node_modules/semantic-ui-react'
+import { Card,Image} from '../../node_modules/semantic-ui-react'
 
 
 export default class Categories extends React.Component{
