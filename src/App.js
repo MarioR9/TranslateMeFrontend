@@ -35,12 +35,27 @@ export default class App extends React.Component {
         }
   }
   componentDidMount=()=>{
+  
     fetch('http://localhost:3000/api/v1/categories')
         .then(res=>res.json()).then(data => {
         this.setState({listOfCategories: data})})
     fetch('http://localhost:3000/api/v1/users')
         .then(res=>res.json()).then(data => {
         this.setState({allUsers: data})})
+    let token = localStorage.getItem("token")
+    if(token){
+      fetch("http://localhost:3000/api/v1/authenticate", {
+        headers: {
+          "Authentication" : `Bearer ${token}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.handleToken(data)
+      })
+    }else{
+      this.setState({loginPage: true})
+    }
   }
   handleCateImages=()=>{
    return this.state.allUsers.find(user => user.id === this.state.currentUser.id)
@@ -124,7 +139,6 @@ export default class App extends React.Component {
         currentUserCategories: data.categories,
         })
         localStorage.setItem('token', data.token)
-        localStorage.setItem('username', data.user.username)
         fetch('http://localhost:3000/api/v1/findCategories',{
           method: "POST",
           headers: {"Content-type": "application/json"},

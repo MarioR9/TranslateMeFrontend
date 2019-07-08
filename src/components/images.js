@@ -2,7 +2,33 @@ import React from '../../node_modules/react'
 import { Card, Image, Modal, Button, Dropdown, Message} from '../../node_modules/semantic-ui-react'
 import ImagesBack from './imagesBack'
 
-let languages = [{key:'Afrikaans',text:'Afrikaans',value: "af"},{key:'Albanian',text:'Albanian', value: "sq"},{key:'Arabic',text:'Arabic', value: "ar"},{key:'Armenian',text:'Armenian', value: "hy"},{key:'Azerbaijani',text:'Azerbaijani', value: "az"},{key:'Bashkir',text:'Bashkir', value: "ba"},{key:'Basque',text:'Basque', value: "eu"},{key:'Belarusian',text:'Belarusian', value: "be"},{key:'Bengali',text:'Bengali', value: "bn"},{key:'Bosnian',text:'Bosnian', value: "bs"},{key:'Bulgarian',text:'Bulgarian', value: "bg"},{key:'Central_Khmer',text:'Central_Khmer', value: "km"},{key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},{key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},{key:'Chuvash',text:'Chuvash',value:"cv"},{key:'Czech',text:'Chuvash', value:"cv"},{key:'Danish',text:'Danish', value: "da"},{key:'Dutch',text:'Dutch', value: "nl"},{key:'English',text:'English', value: "en"},{key:'Esperanto',text:'Esperanto', value: "eo"},{key:'Estonian',text:'Estonian', value: "et"},{key:'Finnish',text:'Finnish', value: "fi"},{key:'French',text:'French', value: "fr"},{key:'Georgian',text:'Georgian', value: "ka"},{key:'German',text:'German', value: "de"},{key:'Greek',text:'Greek', value: "el"},{key:'Gujarati',text:'Gujarati', value: "gu"},{key:'Haitian',text:'Haitian', value: "ht"},{key:'Hebrew',text:'Hebrew', value: "he"},{key:'Hindi',text:'Hindi', value: "hi"},{key:'Hungarian',text:'Hungarian', value: "hu"},{key:'Icelandic',text:'Icelandic', value: "is"},{key:'Indonesian',text:'Indonesian', value: "id"},{key:'Italian',text:'Italian', value: "it"},{key:'Japanese',text:'Japanese', value: "ja"},{key:'Kazakh',text:'Kazakh', value: "kk"},{key:'Kirghiz',text:'Kirghiz', value: "ky"},{key:'Korean',text:'Korean', value: "ko"},{key:'Kurdish',text:'Kurdish', value: "ku"},{key:'Latvian',text:'Latvian', value: "lv"},{key:'Lithuanian',text:'Lithuanian', value: "lt"},{key:'Malayalam',text:'Malayalam', value: "ml"},{key:'Mongolian',text:'Mongolian', value: "mn"},{key:'Norwegia_Bokmal',text:'Norwegia_Bokmal', value: "nb"},{key:'Norwegian_Nynorsk',text:'Norwegian_Nynorsk', value: "nn"},{key:'Panjabi',text:'Panjabi', value: "pa"},{key:'Persian',text:'Persian', value: "fa"},{key:'Polish',text:'Polish', value: "pl"},{key:'Portuguese',text:'Portuguese', value: "pt"},{key:'Pushto',text:'Pushto', value: "ps"},{key:'Romanian',text:'Romanian', value: "ro"},{key:'Russian',text:'Russian', value: "ru"},{key:'Slovakian',text:'Slovakian', value: "sk"},{key:'Somali',text:'Somali', value: "so"},{key:'Spanish',text:'Spanish', value: "es"},{key:'Swedish',text:'Swedish', value: "sv"},{key:'Tamil',text:'Tamil', value: "ta"},{key:'Telugu',text:'Telugu', value: "te"},{key:'Turkish',text:'Turkish', value: "tr"},{key:'Ukrainian',text:'Ukrainian', value: "uk"},{key:'Urdu',text:'Urdu', value: "ur"},{key:'Vietnamese',text:'Vietnamese', value: "vi"}]
+let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
+                 {key:'Catalan',text:'Catalan', value: "ca"},
+                 {key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},
+                 {key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},                
+                 {key:'Czech',text:'Chuvash', value:"cv"},
+                 {key:'Danish',text:'Danish', value: "da"},
+                 {key:'Dutch',text:'Dutch', value: "nl"},
+                 {key:'English',text:'English', value: "en"},
+                 {key:'Finnish',text:'Finnish', value: "fi"},
+                 {key:'French',text:'French', value: "fr"},          
+                 {key:'German',text:'German', value: "de"},
+                 {key:'Greek',text:'Greek', value: "el"},          
+                 {key:'Hebrew',text:'Hebrew', value: "he"},
+                 {key:'Hindi',text:'Hindi', value: "hi"},
+                 {key:'Hungarian',text:'Hungarian', value: "hu"},                
+                 {key:'Italian',text:'Italian', value: "it"},
+                 {key:'Japanese',text:'Japanese', value: "ja"},              
+                 {key:'Korean',text:'Korean', value: "ko"},               
+                 {key:'Norwegia_Bokmal',text:'Norwegia_Bokmal', value: "nb"},           
+                 {key:'Polish',text:'Polish', value: "pl"},
+                 {key:'Portuguese',text:'Portuguese', value: "pt"},                
+                 {key:'Russian',text:'Russian', value: "ru"},               
+                 {key:'Spanish',text:'Spanish', value: "es"},
+                 {key:'Swedish',text:'Swedish', value: "sv"},                
+                 {key:'Turkish',text:'Turkish', value: "tr"}]
+
+                
 
 export default class Images extends React.Component{
     constructor(){
@@ -25,7 +51,8 @@ export default class Images extends React.Component{
             listOfInitalWords:[],
             translatedWord: [],
             cateId: 0,
-            currentImages: []
+            currentImages: [],
+            color: ""
         
         }
     }
@@ -147,17 +174,27 @@ export default class Images extends React.Component{
         }
     }
 
-    handleChangeOglanguage = (e) => {    
-        let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
-      this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
+    handleChangeOglanguage = (e) => {
+        if(e.currentTarget.textContent === "Select a languageAfrikaansAlbanianArabicArmenianAzerbaijaniBashkirBasqueBelarusianBengaliBosnianBulgarianCentral_KhmerChinese_SimplifiedChinese_TraditionalChuvashChuvashDanishDutchEnglishEsperantoEstonianFinnishFrenchGeorgianGermanGreekGujaratiHaitianHebrewHindiHungarianIcelandicIndonesianItalianJapaneseKazakhKirghizKoreanKurdishLatvianLithuanianMalayalamMongolianNorwegia_BokmalNorwegian_NynorskPanjabiPersianPolishPortuguesePushtoRomanianRussianSlovakianSomaliSpanishSwedishTamilTeluguTurkishUkrainianUrduVietnamese"){
+          return null
+      }
+            let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+          this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
+        
     }
-          
+    
     handleChangeTglanguage = (e) => {
-          let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+        if(e.currentTarget.textContent === "Select a languageAfrikaansAlbanianArabicArmenianAzerbaijaniBashkirBasqueBelarusianBengaliBosnianBulgarianCentral_KhmerChinese_SimplifiedChinese_TraditionalChuvashChuvashDanishDutchEnglishEsperantoEstonianFinnishFrenchGeorgianGermanGreekGujaratiHaitianHebrewHindiHungarianIcelandicIndonesianItalianJapaneseKazakhKirghizKoreanKurdishLatvianLithuanianMalayalamMongolianNorwegia_BokmalNorwegian_NynorskPanjabiPersianPolishPortuguesePushtoRomanianRussianSlovakianSomaliSpanishSwedishTamilTeluguTurkishUkrainianUrduVietnamese"){
+            return null
+        }  
+        let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
       this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })
+
+    
     }    
     handleWordToTranslate=(e)=>{
         this.setState({selectedWord: e.currentTarget.children[0].textContent})
+        
     }
     open =(e)=>{
             this.setState({open: true})
@@ -169,10 +206,11 @@ export default class Images extends React.Component{
     
     open3 = () => this.setState({ open3: true })
     
-
+    color = () => this.setState({color: "red"})
 
     render(){
-        const { open, dimmer,open2, open3 } = this.state
+        const { open, dimmer,open2, open3, color } = this.state
+        const { value } = this.state
 //   let t = this 
 //   debugger
         return(
@@ -201,7 +239,7 @@ export default class Images extends React.Component{
              <Modal.Header>All Images</Modal.Header>
              <Modal.Content >
             
-            {this.state.response.map(info =>   <Message class="ui floating message" raised onClick={this.handleWordToTranslate} info>
+            {this.state.response.map(info =>   <Message  color={this.color} id="messageSelection" class="ui floating message" raised onClick={this.handleWordToTranslate} info>
                  <Message.Header>{info}</Message.Header>
               </Message>)}
 
@@ -232,8 +270,8 @@ export default class Images extends React.Component{
                   floating
                   labeled
                   icon='world'
+                  scrolling
                   options={languages}
-                  search
                   text={this.state.displayOgLanguage}
                   /> 
               <Dropdown
@@ -242,9 +280,9 @@ export default class Images extends React.Component{
                 className='icon'
                 floating
                 labeled
+                scrolling
                 icon='world'
                 options={languages}
-                search
                 text={this.state.displayTgLanguage}
                 />
             </Modal.Content>

@@ -1,17 +1,7 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#messageSelection:active {
+  background-color: rgb(95, 236, 107)!important;
+  color: #fff!important;
+}
 
 
 .App-logo {
