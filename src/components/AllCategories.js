@@ -29,7 +29,7 @@ export default class AllCategory extends React.Component{
     }
 
     handleCategoryDup=(e)=>{
-      
+      if(localStorage.getItem('token')){
         fetch('http://localhost:3000/api/v1/dupCategories',{
             method: "POST",
             headers: {"Content-type": "application/json"},
@@ -40,6 +40,10 @@ export default class AllCategory extends React.Component{
                 })
             }).then(resp =>resp.json()).then(data =>{
                 this.props.handleHomePageToProfile(data)})
+            }else{
+                alert("Login First")
+                this.props.handleLoginPage()
+            }
     }
 
     render(){
@@ -58,7 +62,7 @@ export default class AllCategory extends React.Component{
                 {this.props.category.language}
                 </Header>
                 <Button circular size='huge' onClick={this.handleCategoryDup} primary icon='plus' />
-                <Button circular size='huge' icon='heart outline' />
+                {/* <Button circular size='huge' icon='heart outline' /> */}
             </div>
              )
 

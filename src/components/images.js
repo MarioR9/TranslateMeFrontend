@@ -1,6 +1,6 @@
 import React from '../../node_modules/react'
 import { Card, Image, Modal, Button, Dropdown, Message} from '../../node_modules/semantic-ui-react'
-import ImagesBack from './imagesBack'
+
 
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
                  {key:'Catalan',text:'Catalan', value: "ca"},
@@ -70,7 +70,7 @@ export default class Images extends React.Component{
             open: false,
             open2: false,
             open3: false,
-            dimmer: "",
+            dimmer: null,
             displayOgLanguage: "Select a language",
             displayTgLanguage: "Select a language",
             selectedWord: "",
@@ -94,6 +94,19 @@ export default class Images extends React.Component{
             }).then(resp=>resp.json()).then(data => {
                 this.setState({currentImages: data})})
        
+      }
+
+      handleCardDeletion=(e)=>{
+        fetch(`http://localhost:3000/api/v1/images/${e.currentTarget.parentElement.id}`,{
+        method: "Delete",
+        headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                cateId: this.props.cateId,
+                userId: this.props.currentUser.id
+            })
+        }).then(resp=>resp.json()).then(data => {
+                this.setState({currentImages: data.categories})
+            })
       }
     
     showUploadWidget=()=> {
@@ -228,7 +241,6 @@ export default class Images extends React.Component{
         }
         this.setState({languageTarget: arr, displayTgLanguage: "Select a language" })
 
-
     }
 
 
@@ -261,12 +273,12 @@ export default class Images extends React.Component{
     color = () => this.setState({color: "red"})
 
     render(){
-        const { open, dimmer,open2, open3, color } = this.state
-        const { value } = this.state
-//   let t = this 
-//   debugger
+        const { open, dimmer,open2, open3} = this.state
+     
+ 
         return(
           <div>
+          
              <Modal dimmer={dimmer} open={open3} onClose={this.close}>
              <Modal.Header>All Images</Modal.Header>
              <Modal.Content >
@@ -280,7 +292,6 @@ export default class Images extends React.Component{
                  color='red'
                  positive
                  icon='checkmark'
-                 labelPosition='center'
                  content="Continue"
                  onClick={this.handleAddedImg} //re-render new images 
                  />
@@ -339,7 +350,7 @@ export default class Images extends React.Component{
                 />
             </Modal.Content>
             <Modal.Content id="lewidget" >
-             <Button circular size='medium' primary icon='plus' onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
+             <Button circular size='medium' primary onClick={()=>{this.showUploadWidget()}}>Upload files</Button>
              </Modal.Content>
           
             <Modal.Actions>
@@ -348,14 +359,14 @@ export default class Images extends React.Component{
                 </Button>
             </Modal.Actions>
             </Modal>
-         <Button raised circular primary onClick={this.open}>ADD new Image</Button>
+         <Button circular primary onClick={this.open}>ADD new Image</Button>
           <Card.Group>
       
            {this.state.currentImages.map(img =>  
          
-           <Card id={img.id} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
+           <Card key={img.id} id={img.id} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
+              <Button id="deleteButton" onClick={this.handleCardDeletion}>Delete</Button>
                 <Image src={img.url}/>
-              
                 </Card>)}
           
            </Card.Group>

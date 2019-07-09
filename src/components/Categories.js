@@ -24,27 +24,19 @@ export default class Categories extends React.Component{
     
 
     render(){
-  const { open, dimmer } = this.state
-//   let t = this 
-//   debugger
+
         return(
             <div> 
                 
-                <Button onClick={()=>{this.props.handleCategoryDeletion(this.props.cate.id)}}>Delete</Button>
                 <Card id={this.props.cate.id} onClick={this.props.handleImagePage} raised className="card" color='red' >
                     <Image src={this.props.cate.url}/>
+                <Button id="deleteButton" onClick={()=>{this.props.handleCategoryDeletion(this.props.cate.id)}}>Delete</Button>
                 <Card.Content>
                     <Card.Header>{this.props.cate.title}</Card.Header>
                     <Card.Description>
                         {this.props.cate.language}
                     </Card.Description>
                 </Card.Content>
-                {/* <Card.Content extra>
-                    <a>
-                        <Icon name='user' />
-                        {this.props.handleCateImages().categories.map.length} images
-                    </a>
-                </Card.Content> */}
                 </Card> 
             </div>
         )

@@ -2,7 +2,10 @@
   background-color: rgb(95, 236, 107)!important;
   color: #fff!important;
 }
-
+#deleteButton {
+  border: solid;
+  color: red
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

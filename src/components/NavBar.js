@@ -2,6 +2,7 @@ import React from '../../node_modules/react'
 import { Menu } from '../../node_modules/semantic-ui-react'
 import { NavLink } from "react-router-dom";
 import { BrowserRouter as Router} from 'react-router-dom';
+import { Image} from '../../node_modules/semantic-ui-react'
 export default class NavBar extends React.Component{
 
 
@@ -11,7 +12,7 @@ export default class NavBar extends React.Component{
           <Router>
          <Menu stackable>
             <Menu.Item >
-              <img onClick={this.props.handleNavHome} src='TestLogo.png' />
+              <Image size="mini" onClick={this.props.handleNavHome} src='TestLogo.png' />
             </Menu.Item>
 
             <Menu.Item
@@ -21,13 +22,20 @@ export default class NavBar extends React.Component{
               Profile
             </Menu.Item>
 
-
+          {localStorage.getItem('token') ?
             <Menu.Item 
-              name='Home'
+              name='logout'
               onClick={this.props.handleNavLogout}
-              as={NavLink} to="/login">
+              as={NavLink} to="/home">
               Logout
             </Menu.Item>
+            :
+            <Menu.Item 
+              name='logout'
+              onClick={this.props.handleNavLogout}
+              as={NavLink} to="/login">
+              Login
+            </Menu.Item>}
           </Menu>
           </Router>
         )}

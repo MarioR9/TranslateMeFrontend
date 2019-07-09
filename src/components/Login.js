@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Button, Divider, Form, Grid, Segment, Image } from '../../node_modules/semantic-ui-react'
+import { Button, Divider, Form, Grid, Segment } from '../../node_modules/semantic-ui-react'
 
 
 export default class Login extends React.Component{
@@ -10,6 +10,7 @@ export default class Login extends React.Component{
             password: ""
         }
     }
+  
     handleUsernameAndPassword=(e)=>{
         // debugger
         this.setState({

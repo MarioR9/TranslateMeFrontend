@@ -14,13 +14,13 @@ export default class App extends React.Component {
   constructor(){
       super()
         this.state={
-        homePage: false,
+        homePage: true,
         profilePage: false,
         categoriesPage: false,
         AllCategoriesPage: false,
         CreateNewUserPage: false, 
         createCategoryPage: false, 
-        loginPage: true,
+        loginPage: false,
         imagesPage: false,
         imagesBackPage: false,
         listOfCategories: [],
@@ -35,13 +35,9 @@ export default class App extends React.Component {
         }
   }
   componentDidMount=()=>{
-  
     fetch('http://localhost:3000/api/v1/categories')
-        .then(res=>res.json()).then(data => {
-        this.setState({listOfCategories: data})})
-    fetch('http://localhost:3000/api/v1/users')
-        .then(res=>res.json()).then(data => {
-        this.setState({allUsers: data})})
+    .then(res=>res.json()).then(data => {
+    this.setState({listOfCategories: data})}) 
     let token = localStorage.getItem("token")
     if(token){
       fetch("http://localhost:3000/api/v1/authenticate", {
@@ -51,12 +47,16 @@ export default class App extends React.Component {
       })
       .then(res => res.json())
       .then(data => {
-        this.handleToken(data)
+        this.props.handleToken(data)
       })
     }else{
-      this.setState({loginPage: true})
+      this.setState({
+        profilePage: false
+       })
     }
-  }
+}
+  
+ 
   handleCateImages=()=>{
    return this.state.allUsers.find(user => user.id === this.state.currentUser.id)
   }
@@ -75,6 +75,7 @@ export default class App extends React.Component {
 
   }
   handleNavProfile=()=>{
+    if(localStorage.getItem('token')){
     this.setState({
       homePage: false,
       profilePage: true,
@@ -84,9 +85,17 @@ export default class App extends React.Component {
       loginPage: false,
       imagesPage: false,
     })
-
+    }else{
+      alert("Please Login")
+      this.setState({
+        loginPage: true})
+    }
   }
   handleNavHome=()=>{
+    fetch('http://localhost:3000/api/v1/categories')
+    .then(res=>res.json()).then(data => {
+    this.setState({listOfCategories: data})})
+
     this.setState({
       homePage: true,
       profilePage: false,
@@ -96,7 +105,7 @@ export default class App extends React.Component {
       loginPage: false,
       imagesPage: false,
     })
-
+   
   }
   handleCreateNewUser=()=>{
     this.setState({
@@ -167,7 +176,9 @@ export default class App extends React.Component {
     if(data.message){
       alert(data.message)
     }else{
-
+        fetch('http://localhost:3000/api/v1/categories')
+        .then(res=>res.json()).then(data => {
+        this.setState({listOfCategories: data})}) 
     this.setState({
         homePage: false,
        profilePage :true,
@@ -195,22 +206,15 @@ export default class App extends React.Component {
     })
   }
 
-
-  // handleCurrentCategories=(data)=>{
-
-  //   this.setState({
-  //     currentCategories: data
-  //   })
-  // }
-
-
   handleCreateCategory=()=>{
     this.setState({
       profilePage: false,
       createCategoryPage: true
     })
   }
-
+  handleLoginPage=()=>{
+    this.setState({loginPage: true})
+  }
   // handleOff=()=>{
   //     if (this.state.homePage === true){
   //       return <Home currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
@@ -230,15 +234,15 @@ export default class App extends React.Component {
   handleCurrentPage=()=>{
     
     if(this.state.loginPage === true){
-      return <Login handleToken={this.handleToken} handleCreateNewUser={this.handleCreateNewUser}/>
+      return <Login handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} handleToken={this.handleToken} handleCreateNewUser={this.handleCreateNewUser}/>
     }else if (this.state.homePage === true){
-      return <Home handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
+      return <Home handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.imagesBackPage === true){
       return <ImagesBack currentImages={this.state.currentImages} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }
