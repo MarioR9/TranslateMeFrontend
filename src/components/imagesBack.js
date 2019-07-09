@@ -18,7 +18,7 @@ export default class ImagesBack extends React.Component{
       
             <div> 
          
-          <Card.Group>
+         
        
            <Card style={{height:"200px"}} id={this.props.img.id} onClick={this.props.handleCardState} raised className="card" color='red' >
                 <Card.Content>
@@ -29,7 +29,7 @@ export default class ImagesBack extends React.Component{
                 </Card.Content>
               
                 </Card>
-           </Card.Group>
+          
            
           </div>
         )

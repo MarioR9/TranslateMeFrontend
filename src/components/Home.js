@@ -24,7 +24,7 @@ export default class Home extends React.Component{
             <div>
             
                 <Card.Group> 
-                {this.props.categories.map(category => <AllCategories handleLoginPage={this.props.handleLoginPage} handleHomePageToProfile={this.props.handleHomePageToProfile} handleToken={this.props.handleToken} currentUser={this.props.currentUser} id={category.id} key={category.id}category={category}/>)}
+                {this.props.categories.map(category => <AllCategories handleImagePage={this.props.handleImagePage} handleLoginPage={this.props.handleLoginPage} handleHomePageToProfile={this.props.handleHomePageToProfile} handleToken={this.props.handleToken} currentUser={this.props.currentUser} id={category.id} key={category.id}category={category}/>)}
                 </Card.Group>
 
             </div>

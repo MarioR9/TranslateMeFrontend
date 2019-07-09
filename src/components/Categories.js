@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Card, Image, Modal, Button, Dropdown, Message, Icon} from '../../node_modules/semantic-ui-react'
+import { Card, Image, Button} from '../../node_modules/semantic-ui-react'
 
 
 export default class Categories extends React.Component{
@@ -10,7 +10,7 @@ export default class Categories extends React.Component{
         return(
             <div> 
                
-                <Card id={this.props.cate.id} onClick={this.props.handleImagePage} raised className="card" color='red' >
+                <Card id={this.props.cate.id} data-name={this.props.cate.title} onClick={this.props.handleImagePage} raised className="card" color='red' >
                     <Image src={this.props.cate.url}/>
                 <Card.Content>
                     <Card.Header>{this.props.cate.title}</Card.Header>

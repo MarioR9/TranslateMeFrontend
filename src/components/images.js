@@ -1,7 +1,7 @@
 import React from '../../node_modules/react'
 import ImageCard from './imageCard';
 
-import { Card, Image, Modal, Button, Dropdown, Message, Icon, Progress} from '../../node_modules/semantic-ui-react'
+import { Card, Modal, Button, Dropdown, Message, Icon, Progress,Grid,Header} from '../../node_modules/semantic-ui-react'
 
 
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
@@ -73,8 +73,8 @@ export default class Images extends React.Component{
         open2: false,
         open3: false,
         dimmer: null,
-        displayOgLanguage: "Select a language",
-        displayTgLanguage: "Select a language",
+        displayOgLanguage: "Select Your Language",
+        displayTgLanguage: "Select Target Language",
         selectedWord: "",
         listOfWords:[],
         listOfInitalWords:[],
@@ -83,8 +83,11 @@ export default class Images extends React.Component{
         color: "",
         languageTarget: [],
         currentCateId: 0,
-        startBarState: "Progress",
-        percent: 0
+        startBarState: "",
+        percent: 0,
+        initialWordSelection: true,
+        resultWordSelection: false,
+        disabled: true
     }
 }
 
@@ -99,7 +102,7 @@ handleImageCollection=()=>{
 }
 
 handleCardDeletion=(e)=>{
-    // debugger
+   
     fetch(`http://localhost:3000/api/v1/images/${e.currentTarget.parentElement.id}`,{
     method: "Delete",
     headers: {"Content-type": "application/json"},
@@ -183,15 +186,7 @@ handleTranslation=()=>{
     })
 }
 handleAddedImg=()=>{
-    fetch('http://localhost:3000/api/v1/findCategory',{
-        method: "POST",
-        headers: {"Content-type": "application/json"},
-        body: JSON.stringify({
-            cateId: this.props.cateId,
-           })
-        }).then(resp=>resp.json()).then(data => {
-          
-            this.setState({currentImages: data})})
+    this.props.handleCardImage(this.props.cateId)
     this.close()       
 }
 handleFetchResponse=(data)=>{
@@ -244,7 +239,7 @@ handleTargetLanguage=(data)=>{
             arr.push(obj)
         }
     }
-    this.setState({languageTarget: arr, displayTgLanguage: "Select a language" })
+    this.setState({languageTarget: arr, displayTgLanguage: "Select Target Language" })
 
 }
 
@@ -252,8 +247,8 @@ handleTargetLanguage=(data)=>{
 
 
 handleChangeTglanguage = (e) => {
-  
-    if(e.currentTarget.textContent === "Select a languageEnglish"){
+//   debugger
+    if(e.currentTarget.textContent === "Select Target Language"){
         return null
     }  
     let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
@@ -262,7 +257,7 @@ handleChangeTglanguage = (e) => {
 
 }    
 handleWordToTranslate=(e)=>{
-    this.setState({selectedWord: e.currentTarget.children[0].textContent})
+    this.setState({selectedWord: e.currentTarget.children[0].textContent, initialWordSelection: false,resultWordSelection: true, disabled:false})
     
 }
 open =(e)=>{
@@ -278,7 +273,7 @@ open3 = () => this.setState({ open3: true })
 
 color = () => this.setState({color: "red"})
 
-toggle = () => this.setState(prevState => ({ percent: prevState.percent === 0 ? 50 : 0,startBarState: "Please wait.." }))
+toggle = () => this.setState(prevState => ({ percent: prevState.percent === 0 ? 50 : 0,startBarState: "Please wait..." }))
 
 toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 ? 100 : 0,startBarState: "Success" }))
 
@@ -290,6 +285,7 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
         return(
           <div>
              <Button id="addButton" onClick={this.open}><Icon name="plus"/>Add New Image</Button>
+             <Header>{this.props.cateTitle}</Header>
             <div>
              <Modal dimmer={dimmer} open={open3} onClose={this.close}>
              <Modal.Header>All Images</Modal.Header>
@@ -314,7 +310,7 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
              <Modal.Header><Icon name="language"/>What do you mean?</Modal.Header>
              <Modal.Content >
             
-            {this.state.response.map(info =>   <Message  color={this.color} id="messageSelection" class="ui floating message" raised onClick={this.handleWordToTranslate} info>
+            {this.state.response.map(info =>   <Message   id="messageSelection" class="ui floating message" raised onClick={this.handleWordToTranslate} info={this.state.initialWordSelection} success={this.state.resultWordSelection}>
                  <Message.Header>{info}</Message.Header>
               </Message>)}
 
@@ -338,7 +334,7 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
               <Modal dimmer={dimmer} open={open} >
               <Modal.Header><Icon name="language"/>Select a Language </Modal.Header>
               <Modal.Content>
-              <Progress percent={this.state.percent} autoSuccess />{this.state.startBarState}
+              <Progress percent={this.state.percent} success disabled={this.state.disabled} />{this.state.startBarState}
               </Modal.Content> 
               <Modal.Content image>
                   <Dropdown 
@@ -374,10 +370,11 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
                 </Button>
             </Modal.Actions>
             </Modal>
-            
+            <Grid>
             <Card.Group>
-            {this.props.currentCardImages.map(img => <ImageCard  handleCardImage={this.props.handleCardImage} key={img.id} handleCardImage={this.props.handleCardImage} handleToken={this.props.handleToken} handleCardState={this.handleCardState} img={img} cateId={this.props.cateId} currentImages={this.props.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.props.allUsers} currentUser={this.props.currentUser}/>)}
+            {this.props.currentCardImages.map(img => <ImageCard  key={img.id} handleCardImage={this.props.handleCardImage} handleToken={this.props.handleToken} handleCardState={this.handleCardState} img={img} cateId={this.props.cateId} currentImages={this.props.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.props.allUsers} currentUser={this.props.currentUser}/>)}
             </Card.Group>
+            </Grid>
             </div>
 
 

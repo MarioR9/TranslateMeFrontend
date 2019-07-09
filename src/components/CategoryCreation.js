@@ -72,7 +72,7 @@ export default class CategoryCreation extends React.Component{
                     selectedWord: this.state.selectedWord
                 })
             }).then(resp => resp.json()).then(data =>{
-                debugger
+            
                 this.setState({translatedWord: data.translation.translations[0].translation, open2: true})})
         }
      

@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Button, Dimmer, Header, Image, Card, Modal,Icon } from '../../node_modules/semantic-ui-react'
+import { Button, Dimmer, Header, Image, Card, Modal} from '../../node_modules/semantic-ui-react'
 
 
 
@@ -95,7 +95,7 @@ export default class AllCategory extends React.Component{
                     </div>
 
                 <div>
-                    <Card id={this.props.category.id} raised className="card" color='red' image={
+                    <Card id={this.props.category.id} data-name={this.props.category.title}raised className="card" color='red' image={
                     <Dimmer.Dimmable
                         
                         as={Image}
@@ -115,12 +115,7 @@ export default class AllCategory extends React.Component{
                             {this.props.category.language}
                         </Card.Description>
                     </Card.Content>
-                    <Card.Content extra>
-                       
-                            <Icon name='images outline' />
-                            {this.props.category.images.length} images
-                       
-                    </Card.Content>
+                 
                     </div>
                 </div>
         </div>

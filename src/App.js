@@ -33,7 +33,8 @@ export default class App extends React.Component {
         currentImages: [],
         currentCardImages:[],
         cateId: null,
-        currentPage: []
+        currentPage: [],
+        cateTitle : ""
         }
   }
   componentDidMount=()=>{
@@ -96,7 +97,7 @@ export default class App extends React.Component {
   handleNavHome=()=>{
     fetch('http://localhost:3000/api/v1/categories')
     .then(res=>res.json()).then(data => {
-    this.setState({listOfCategories: data})})
+    this.setState({listOfCategories: [...this.state.listOfCategories,data]})})
 
     this.setState({
       homePage: true,
@@ -121,7 +122,7 @@ export default class App extends React.Component {
     })
   }
   handleImagePage=(e)=>{
-  
+   
   this.handleCardImage(e.currentTarget.id)
     this.setState({
       homePage: false,
@@ -131,18 +132,53 @@ export default class App extends React.Component {
       CreateNewUserPage: false,  
       loginPage: false,
       imagesPage: true,
-      cateId: e.currentTarget.id
+      cateId: e.currentTarget.id,
+      cateTitle: e.currentTarget.dataset.name
+    })
+  }
+  handleCateTitle=(data)=>{
+    this.setState({cateTitle: data})
+  }
+  handleImagePageNew=(cateId)=>{
+   
+  this.handleCardImage(cateId)
+    this.setState({
+      homePage: false,
+      profilePage: false,
+      categoriesPage: false,
+      AllCategoriesPage: false,
+      CreateNewUserPage: false,  
+      loginPage: false,
+      imagesPage: true,
+      cateId: cateId
     })
   }
   handleImageRender=(data)=>{
     this.setState({
-      currentImages: data
+      currentImages: [...this.state.currentImages,data]
      })
   }
 
   handleToken=(data)=>{
-    
-    if(!data.message){
+  
+    if(data.newDup){
+      this.handleImagePageNew(data.newDup.id,)
+      this.handleCateTitle(data.newDup.title)
+        localStorage.setItem('token', data.token)
+        fetch('http://localhost:3000/api/v1/findCategories',{
+          method: "POST",
+          headers: {"Content-type": "application/json"},
+          body: JSON.stringify({
+              userId: data.user.id
+              })
+          })
+          .then(res=>res.json()).then(data => {
+          this.setState({currentImages: data})  
+          fetch('http://localhost:3000/api/v1/categories')
+          .then(res=>res.json()).then(data => {
+          this.setState({listOfCategories: [...this.state.listOfCategories,data]})})  
+      })
+    }else if(!data.message){
       this.setState({
         loginPage: false,
         profilePage: true,
@@ -163,7 +199,7 @@ export default class App extends React.Component {
           this.setState({currentImages: data})  
           fetch('http://localhost:3000/api/v1/categories')
           .then(res=>res.json()).then(data => {
-          this.setState({listOfCategories: data})})  
+          this.setState({listOfCategories: [...this.state.listOfCategories,data]})})  
       })
       
     }else{
@@ -194,24 +230,26 @@ export default class App extends React.Component {
     }else{
         fetch('http://localhost:3000/api/v1/categories')
         .then(res=>res.json()).then(data => {
-        this.setState({listOfCategories: data})}) 
+        this.setState({listOfCategories: [...this.state.listOfCategories,data]})}) 
     this.setState({
         homePage: false,
        profilePage :true,
        currentUser: data.user,
-       currentUserCategories: data.categories,
+       currentUserCategories: [...this.state.currentUserCategories,data.categories],
     })
   }
   }
+
+
   handleRenderNewCategories=(data)=>{
     this.setState({
        profilePage :true,
        currentUser: data.user,
-       currentUserCategories: data.categories,
+       currentUserCategories: data.categories
     })
     fetch('http://localhost:3000/api/v1/categories')
         .then(res=>res.json()).then(data => {
-        this.setState({listOfCategories: data})})
+        this.setState({listOfCategories: [...this.state.listOfCategories,data]})})
   
   }
 
@@ -252,13 +290,13 @@ export default class App extends React.Component {
     if(this.state.loginPage === true){
       return <Login handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} handleToken={this.handleToken} handleCreateNewUser={this.handleCreateNewUser}/>
     }else if (this.state.homePage === true){
-      return <Home handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
+      return <Home handleImagePage={this.handleImagePage} handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
       return <Profile handleCardImage={this.handleCardImage}  handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleCardImage={this.handleCardImage}/>
+      return <Images cateTitle={this.state.cateTitle} cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleCardImage={this.handleCardImage}/>
     }
   }
 

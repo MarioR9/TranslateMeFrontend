@@ -1,7 +1,6 @@
 import React from '../../node_modules/react'
 import ImagesBack from './imagesBack';
 import ImagesFront from './imagesFront';
-import { Card, Image, Modal, Button, Dropdown, Message, Icon} from '../../node_modules/semantic-ui-react'
 
 
 export default class Images extends React.Component{
