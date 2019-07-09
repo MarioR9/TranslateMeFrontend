@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Card, Image, Modal, Button, Dropdown, Message} from '../../node_modules/semantic-ui-react'
+import { Card, Image, Modal, Button, Dropdown, Message, Icon} from '../../node_modules/semantic-ui-react'
 
 
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
@@ -299,7 +299,7 @@ export default class Images extends React.Component{
             </Modal>
 
             <Modal dimmer={dimmer} open={open2} onClose={this.close}>
-             <Modal.Header>All Images</Modal.Header>
+             <Modal.Header><Icon name="language"/>What do you mean?</Modal.Header>
              <Modal.Content >
             
             {this.state.response.map(info =>   <Message  color={this.color} id="messageSelection" class="ui floating message" raised onClick={this.handleWordToTranslate} info>
@@ -324,7 +324,7 @@ export default class Images extends React.Component{
              </Modal>
 
               <Modal dimmer={dimmer} open={open} >
-              <Modal.Header>Select a Photo</Modal.Header>
+              <Modal.Header><Icon name="language"/>Select a Language </Modal.Header>
               <Modal.Content image>
                   <Dropdown 
                   onChange={this.handleChangeOglanguage}
@@ -359,15 +359,15 @@ export default class Images extends React.Component{
                 </Button>
             </Modal.Actions>
             </Modal>
-         <Button circular primary onClick={this.open}>ADD new Image</Button>
+         <Button circular primary onClick={this.open}><Icon name="plus"/>Add new</Button>
           <Card.Group>
       
            {this.state.currentImages.map(img =>  
          
            <Card key={img.id} id={img.id} onClick={this.props.handleImageBackPage} raised className="card" color='red' >
               <Button id="deleteButton" onClick={this.handleCardDeletion}>Delete</Button>
-                <Image src={img.url}/>
-                </Card>)}
+              <Image src={img.url}/>
+            </Card>)}
           
            </Card.Group>
            

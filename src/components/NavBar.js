@@ -11,8 +11,9 @@ export default class NavBar extends React.Component{
         return(
           <Router>
          <Menu stackable>
-            <Menu.Item >
-              <Image size="mini" onClick={this.props.handleNavHome} src='TestLogo.png' />
+            <Menu.Item onClick={this.props.handleNavHome} as={NavLink} to="/discover">
+              <Image size="mini"  src='TestLogo.png' />
+              Discover
             </Menu.Item>
 
             <Menu.Item
@@ -26,7 +27,7 @@ export default class NavBar extends React.Component{
             <Menu.Item 
               name='logout'
               onClick={this.props.handleNavLogout}
-              as={NavLink} to="/home">
+              as={NavLink} to="/login">
               Logout
             </Menu.Item>
             :

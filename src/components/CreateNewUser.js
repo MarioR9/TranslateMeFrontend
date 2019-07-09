@@ -49,8 +49,7 @@ export default class CreateNewUser extends React.Component{
                     <Input onChange={this.handleUsername} placeholder='Username' />
                     <label>Password</label>
                     <Input onChange={this.handlePassword} placeholder='Password' />
-                    <Button primary onClick={this.handleNewUserFetch}>Create</Button>
-                    
+                    <Button color='teal' onClick={this.handleNewUserFetch} content='Create' icon='add' labelPosition='left' />
                 </Form>
             </div>
         )

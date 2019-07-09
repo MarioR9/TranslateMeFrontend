@@ -117,7 +117,7 @@ export default class AllCategory extends React.Component{
                     </Card.Content>
                     <Card.Content extra>
                        
-                            <Icon name='user' />
+                            <Icon name='images outline' />
                             {this.props.category.images.length} images
                        
                     </Card.Content>

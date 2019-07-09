@@ -47,7 +47,7 @@ export default class App extends React.Component {
       })
       .then(res => res.json())
       .then(data => {
-        this.props.handleToken(data)
+        this.handleToken(data)
       })
     }else{
       this.setState({

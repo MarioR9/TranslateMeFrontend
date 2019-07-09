@@ -2,7 +2,7 @@
 // import UPLOADPRESET from '../../inventory'
 
 import React from '../../node_modules/react'
-import { Card, Modal, Form, Button , Header, Icon, Image, Menu, Segment, Sidebar} from '../../node_modules/semantic-ui-react'
+import { Card, Modal, Form, Button, Icon, Menu, Segment, Sidebar} from '../../node_modules/semantic-ui-react'
 import Categories from './Categories';
 
 export default class Profile extends React.Component{
