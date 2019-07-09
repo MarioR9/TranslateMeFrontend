@@ -17,24 +17,23 @@ export default class ImagesFront extends React.Component{
                 userId: this.props.currentUser.id
             })
         }).then(resp=>resp.json()).then(data => {
-                this.props.handleToken(data)
+                this.props.handleCardImage(this.props.cateId)
             })
       }
     
     
 
     render(){
-      let t = this 
-      debugger
+    
         return(
           <div>
-              <Button id="deleteButton" onClick={this.handleCardDeletion}>Delete</Button>
           
         
+              {/* <Button id="deleteButton" onClick={this.handleCardDeletion}>Delete</Button> */}
           <Card.Group>
       
-           <Card key={this.props.img.id} id={this.props.img.id} onClick={this.props.handleCardState} raised className="card" color='red' >
-              <Image src={this.props.img.url}/>
+           <Card  style={{height:"200px"}} key={this.props.img.id} id={this.props.img.id} onClick={this.props.handleCardState} raised className="card" color='red' >
+              <Image  label={{ as: 'a', color: 'red', corner: 'right', icon: 'delete' }} style={{height:"200px"}} src={this.props.img.url}/>
             </Card>
           
            </Card.Group>

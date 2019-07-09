@@ -121,8 +121,8 @@ export default class App extends React.Component {
     })
   }
   handleImagePage=(e)=>{
-  //  debugger
-  this.handleCardImage()
+  
+  this.handleCardImage(e.currentTarget.id)
     this.setState({
       homePage: false,
       profilePage: false,
@@ -141,7 +141,7 @@ export default class App extends React.Component {
   }
 
   handleToken=(data)=>{
-  
+    
     if(!data.message){
       this.setState({
         loginPage: false,
@@ -165,21 +165,19 @@ export default class App extends React.Component {
           .then(res=>res.json()).then(data => {
           this.setState({listOfCategories: data})})  
       })
-      if(this.state.cateId){   
-      this.handleCardImage()
-      } 
+      
     }else{
       alert(data.message)
     }
   }
 
-  handleCardImage=()=>{
+  handleCardImage=(id)=>{
     
     fetch('http://localhost:3000/api/v1/findCategory',{
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
-            cateId: this.state.cateId,
+            cateId: id
            })
         }).then(resp=>resp.json()).then(data => {
             this.setState({currentCardImages: data})}) 
@@ -260,7 +258,7 @@ export default class App extends React.Component {
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleToken={this.handleToken}/>
+      return <Images cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleCardImage={this.handleCardImage}/>
     }
   }
 

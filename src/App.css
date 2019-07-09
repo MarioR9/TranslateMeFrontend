@@ -11,6 +11,9 @@
   border: solid;
   color: blue
 }
+#divCard {
+  margin-top: 2%;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
