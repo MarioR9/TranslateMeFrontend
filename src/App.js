@@ -8,7 +8,7 @@ import Login from './components/Login'
 // import { Route, Switch } from "react-router-dom";
 // import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
-import ImagesBack from './components/imagesBack'
+
 
 export default class App extends React.Component {
   constructor(){
@@ -23,6 +23,7 @@ export default class App extends React.Component {
         loginPage: false,
         imagesPage: false,
         imagesBackPage: false,
+        imagesFrontPage: false,
         listOfCategories: [],
         token: '',
         currentUser: [],
@@ -30,7 +31,8 @@ export default class App extends React.Component {
         currentCategories: [],
         currentUserCategories: [],
         currentImages: [],
-        cateId: 0,
+        currentCardImages:[],
+        cateId: null,
         currentPage: []
         }
   }
@@ -119,7 +121,7 @@ export default class App extends React.Component {
     })
   }
   handleImagePage=(e)=>{
-   
+  //  debugger
     this.setState({
       homePage: false,
       profilePage: false,
@@ -138,7 +140,7 @@ export default class App extends React.Component {
   }
 
   handleToken=(data)=>{
-
+  
     if(!data.message){
       this.setState({
         loginPage: false,
@@ -161,11 +163,25 @@ export default class App extends React.Component {
           fetch('http://localhost:3000/api/v1/categories')
           .then(res=>res.json()).then(data => {
           this.setState({listOfCategories: data})})  
-      })   
-        
+      })
+      if(this.state.cateId){   
+      this.handleCardImage()
+      } 
     }else{
       alert(data.message)
     }
+  }
+
+  handleCardImage=()=>{
+    
+    fetch('http://localhost:3000/api/v1/findCategory',{
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            cateId: this.state.cateId,
+           })
+        }).then(resp=>resp.json()).then(data => {
+            this.setState({currentCardImages: data})}) 
   }
   handleCategoryPage=()=>{
     this.setState({
@@ -243,9 +259,7 @@ export default class App extends React.Component {
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
-    }else if (this.state.imagesBackPage === true){
-      return <ImagesBack currentImages={this.state.currentImages} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Images handleCardImage={this.handleCardImage} cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleToken={this.handleToken}/>
     }
   }
 
