@@ -102,7 +102,7 @@ export default class Profile extends React.Component{
             <Segment basic>
             <Card.Group>
                     <Card raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
-                        {this.props.currentUserCategories.map(cate => <Categories key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
+                        {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
 
             </Segment>

@@ -24,6 +24,8 @@ export default class ImagesFront extends React.Component{
     
 
     render(){
+      let t = this 
+      debugger
         return(
           <div>
               <Button id="deleteButton" onClick={this.handleCardDeletion}>Delete</Button>

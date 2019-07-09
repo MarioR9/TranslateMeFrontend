@@ -83,6 +83,7 @@ export default class Categories extends React.Component{
             currentCateId: 0
         }
     }
+   
     show = dimmer => (e) => {
         this.setState({ 
             dimmer, open: true

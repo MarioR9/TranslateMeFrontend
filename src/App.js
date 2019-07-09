@@ -122,6 +122,7 @@ export default class App extends React.Component {
   }
   handleImagePage=(e)=>{
   //  debugger
+  this.handleCardImage()
     this.setState({
       homePage: false,
       profilePage: false,
@@ -255,11 +256,11 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleCardImage={this.handleCardImage}  handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images handleCardImage={this.handleCardImage} cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleToken={this.handleToken}/>
+      return <Images cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleToken={this.handleToken}/>
     }
   }
 
