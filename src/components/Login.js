@@ -36,7 +36,7 @@ export default class Login extends React.Component{
     render(){
         return(
             <div>
-            <Image src='TestLogo.png' />
+            {/* <Image src='TestLogo.png' /> */}
                 <Segment placeholder>
                     <Grid columns={2} relaxed='very' stackable>
                         <Grid.Column>

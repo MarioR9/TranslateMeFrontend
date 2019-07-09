@@ -147,8 +147,6 @@ export default class App extends React.Component {
               })
           })
           .then(res=>res.json()).then(data => {
-              // debugger
-          console.log(data)
           this.setState({currentImages: data})  
           fetch('http://localhost:3000/api/v1/categories')
           .then(res=>res.json()).then(data => {
@@ -169,11 +167,25 @@ export default class App extends React.Component {
     if(data.message){
       alert(data.message)
     }else{
+
     this.setState({
         homePage: false,
-       profilePage :true
+       profilePage :true,
+       currentUser: data.user,
+       currentUserCategories: data.categories,
     })
   }
+  }
+  handleRenderNewCategories=(data)=>{
+    this.setState({
+       profilePage :true,
+       currentUser: data.user,
+       currentUserCategories: data.categories,
+    })
+    fetch('http://localhost:3000/api/v1/categories')
+        .then(res=>res.json()).then(data => {
+        this.setState({listOfCategories: data})})
+  
   }
 
   handleImageBackPage=()=>{
@@ -222,7 +234,7 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} handleCategoryPage={this.handleCategoryPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){

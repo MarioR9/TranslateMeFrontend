@@ -79,7 +79,8 @@ export default class Images extends React.Component{
             translatedWord: [],
             cateId: 0,
             currentImages: [],
-            color: ""
+            color: "",
+            languageTarget: []
         
         }
     }
@@ -202,9 +203,7 @@ export default class Images extends React.Component{
     }
 
     handleChangeOglanguage = (e) => {
-        if(e.currentTarget.textContent === "Select a languageAfrikaansAlbanianArabicArmenianAzerbaijaniBashkirBasqueBelarusianBengaliBosnianBulgarianCentral_KhmerChinese_SimplifiedChinese_TraditionalChuvashChuvashDanishDutchEnglishEsperantoEstonianFinnishFrenchGeorgianGermanGreekGujaratiHaitianHebrewHindiHungarianIcelandicIndonesianItalianJapaneseKazakhKirghizKoreanKurdishLatvianLithuanianMalayalamMongolianNorwegia_BokmalNorwegian_NynorskPanjabiPersianPolishPortuguesePushtoRomanianRussianSlovakianSomaliSpanishSwedishTamilTeluguTurkishUkrainianUrduVietnamese"){
-          return null
-      }
+        
             let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
           this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
           fetch('http://localhost:3000/api/v1/findModel',{
@@ -213,21 +212,31 @@ export default class Images extends React.Component{
             body: JSON.stringify({
                     oglanguage: ogLan
                 })
-            }).then(resp=>resp.json()).then(data=>{debugger})
+            }).then(resp=>resp.json()).then(data=>{this.handleTargetLanguage(data)})
     }
-    // handleTargetLanguage=(data)=>{
-        // let target = data.models.models.map(lang => lang.target)
-        // let arr = []
-        // for(let i =0; i < target.length; i++){
-        //     if(languages[i].value === target[i]){
-        //     arr.push(languages[i])
-        //     }
-        // }
-        // return arr
-    // }
+    
+    handleTargetLanguage=(data)=>{ 
+        
+        let target = data.models.models.map(lang => lang.target)
+        let arr = []
+        let obj = {}
+        for(let i = 0; i < Object.keys(languages2).length; i++){
+            if(languages2[target[i]]){
+                obj = {key: languages2[target[i]], text: languages2[target[i]], value: target[i]}
+                arr.push(obj)
+            }
+        }
+        this.setState({languageTarget: arr, displayTgLanguage: "Select a language" })
+
+
+    }
+
+
+    
     
     handleChangeTglanguage = (e) => {
-        if(e.currentTarget.textContent === "Select a languageAfrikaansAlbanianArabicArmenianAzerbaijaniBashkirBasqueBelarusianBengaliBosnianBulgarianCentral_KhmerChinese_SimplifiedChinese_TraditionalChuvashChuvashDanishDutchEnglishEsperantoEstonianFinnishFrenchGeorgianGermanGreekGujaratiHaitianHebrewHindiHungarianIcelandicIndonesianItalianJapaneseKazakhKirghizKoreanKurdishLatvianLithuanianMalayalamMongolianNorwegia_BokmalNorwegian_NynorskPanjabiPersianPolishPortuguesePushtoRomanianRussianSlovakianSomaliSpanishSwedishTamilTeluguTurkishUkrainianUrduVietnamese"){
+      
+        if(e.currentTarget.textContent === "Select a languageEnglish"){
             return null
         }  
         let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
@@ -325,7 +334,7 @@ export default class Images extends React.Component{
                 labeled
                 scrolling
                 icon='world'
-                options={languages}
+                options={this.state.languageTarget}
                 text={this.state.displayTgLanguage}
                 />
             </Modal.Content>

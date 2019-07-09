@@ -15,8 +15,7 @@ export default class Profile extends React.Component{
             scores:[],
             open: false,
             dimmer: "",
-            currentImages: [],
-            user: this.props.allUsers.find(user => user.id === this.props.currentUser.id)
+            currentImages: []
         }
       
     }
@@ -44,6 +43,17 @@ export default class Profile extends React.Component{
         console.log(data)
         this.setState({open: false})    
     })
+    }
+
+    handleCategoryDeletion=(categoryid)=>{
+    
+        fetch(`http://localhost:3000/api/v1/categories/${categoryid}`,{
+        method: "DELETE",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            userId: this.props.currentUser.id
+            })
+        }).then(resp => resp.json()).then(data => this.props.handleRenderNewCategories(data))
     }
 
     render(){
@@ -82,7 +92,7 @@ export default class Profile extends React.Component{
             </Modal>
                     <Card.Group>
                     <Card raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
-                        {this.props.currentUserCategories.map(cate => <Categories  handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
+                        {this.props.currentUserCategories.map(cate => <Categories handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
                     </Card.Group>
             </div>
         )
