@@ -143,6 +143,7 @@ export default class App extends React.Component {
       this.setState({
         loginPage: false,
         profilePage: true,
+        homePage: false,
         token: data.token,
         currentUser: data.user,
         currentUserCategories: data.categories,

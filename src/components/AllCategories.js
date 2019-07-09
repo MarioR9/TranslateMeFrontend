@@ -39,7 +39,7 @@ export default class AllCategory extends React.Component{
 
                 })
             }).then(resp =>resp.json()).then(data =>{
-                this.props.handleHomePageToProfile(data)})
+                this.props.handleToken(data)})
             }else{
                 alert("Login First")
                 this.props.handleLoginPage()
