@@ -150,6 +150,7 @@ showUploadWidget=()=> {
 
 
 handleTranslation=()=>{
+    
     fetch('http://localhost:3000/api/v1/translate',{
     method: "POST",
     headers: {"Content-type": "application/json"},
@@ -158,7 +159,7 @@ handleTranslation=()=>{
             tglanguage: this.state.tglanguage,
             selectedWord: this.state.selectedWord
         })
-    }).then(resp => resp.json()).then(data =>{
+    }).then(resp => resp.json()).then(data =>{debugger
       
     this.setState({translatedWord: data.translation.translations[0].translation, 
             open3: true})
@@ -176,9 +177,9 @@ handleTranslation=()=>{
         headers: {"Content-type": "application/json"},
         body: JSON.stringify({
             cateId: this.props.cateId,
-           })
-        }).then(resp=>resp.json()).then(data => {
-          
+        })
+    }).then(resp=>resp.json()).then(data => {
+        
             this.props.handleCardImage(this.props.cateId)}))
         
     })
@@ -280,8 +281,8 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
     render(){ 
     
       const { open, dimmer,open2, open3} = this.state
-      // let t = this
-      // debugger
+    //   let t = this
+    //   debugger
         return(
           <div>
              <Button id="addButton" onClick={this.open}><Icon name="plus"/>Add New Image</Button>

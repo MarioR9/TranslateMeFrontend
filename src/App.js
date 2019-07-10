@@ -5,8 +5,8 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
-// import { Route, Switch } from "react-router-dom";
-// import {BrowserRouter} from 'react-router-dom'
+import { Route, Switch } from "react-router-dom";
+import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
 
 
@@ -160,7 +160,7 @@ export default class App extends React.Component {
   }
 
   handleToken=(data)=>{
-  
+  // debugger
     if(data.newDup){
       this.handleImagePageNew(data.newDup.id,)
       this.handleCateTitle(data.newDup.title)
@@ -316,11 +316,11 @@ export default class App extends React.Component {
         {/* <BrowserRouter>
         <div>
           <Switch>
-            <Route path="/home" component={AllCategories} />
+            <Route path="/home" component={Home} />
             <Route path="/signup" component={CreateNewUser} />
             <Route path="/login" component={Login} />
-            <Route path="/category" component={CategoryCreation} />
             <Route path="/profile" component={Profile} />
+            <Route path="/cards" component={Images}/>
             <Route path="/" component={Home} />
           </Switch>
           </div>

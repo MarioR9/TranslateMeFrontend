@@ -43,7 +43,7 @@ export default class Profile extends React.Component{
             })
         })
         .then(res=>res.json()).then(data => {
-            // debugger
+            debugger
            this.props.handleToken(data)
         this.props.handleCategoryPage()
         this.setState({open: false})    
