@@ -97,7 +97,7 @@ export default class App extends React.Component {
   handleNavHome=()=>{
     fetch('http://localhost:3000/api/v1/categories')
     .then(res=>res.json()).then(data => {
-    this.setState({listOfCategories: [...this.state.listOfCategories,data]})})
+    this.setState({listOfCategories: data})})
 
     this.setState({
       homePage: true,
@@ -164,6 +164,11 @@ export default class App extends React.Component {
     if(data.newDup){
       this.handleImagePageNew(data.newDup.id,)
       this.handleCateTitle(data.newDup.title)
+      this.setState({
+        token: data.token,
+        currentUser: data.user,
+        currentUserCategories: data.categories,
+        })
         localStorage.setItem('token', data.token)
         fetch('http://localhost:3000/api/v1/findCategories',{
           method: "POST",
@@ -199,7 +204,7 @@ export default class App extends React.Component {
           this.setState({currentImages: data})  
           fetch('http://localhost:3000/api/v1/categories')
           .then(res=>res.json()).then(data => {
-          this.setState({listOfCategories: [...this.state.listOfCategories,data]})})  
+          this.setState({listOfCategories: data})})  
       })
       
     }else{
