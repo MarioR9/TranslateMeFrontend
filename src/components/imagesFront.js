@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Card, Image, Button,Grid} from '../../node_modules/semantic-ui-react'
+import { Card, Image, Button} from '../../node_modules/semantic-ui-react'
 
 
                 

@@ -5,7 +5,6 @@ import { Card, Modal, Button, Dropdown, Message, Icon, Progress,Grid,Header} fro
 
 
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
-                 {key:'Catalan',text:'Catalan', value: "ca"},
                  {key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},
                  {key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},                
                  {key:'Czech',text:'Chuvash', value:"cs"},
@@ -32,7 +31,6 @@ let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
 
                  
 let languages2 = {'ar':'Arabic',
-                 "ca":'Catalan',
                  "zh":'Chinese_Simplified',
                  "zh-Tw":'Chinese_Traditional',                
                  "cs":'Czech',
@@ -216,8 +214,10 @@ handleFetchResponse=(data)=>{
 }
 
 handleChangeOglanguage = (e) => {
-    
-        let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+    let ogLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+        if(ogLan === undefined){
+            return null
+         }else{
       this.setState({ oglanguage: ogLan.value, displayOgLanguage: e.currentTarget.textContent })
       fetch('http://localhost:3000/api/v1/findModel',{
         method: "POST",
@@ -226,10 +226,11 @@ handleChangeOglanguage = (e) => {
                 oglanguage: ogLan
             })
         }).then(resp=>resp.json()).then(data=>{this.handleTargetLanguage(data)})
+    }
 }
 
 handleTargetLanguage=(data)=>{ 
-    
+   
     let target = data.models.models.map(lang => lang.target)
     let arr = []
     let obj = {}
@@ -247,14 +248,13 @@ handleTargetLanguage=(data)=>{
 
 
 handleChangeTglanguage = (e) => {
-//   debugger
-    if(e.currentTarget.textContent === "Select Target Language"){
-        return null
-    }  
     let tarLan = languages.find(lan => lan.key === e.currentTarget.textContent)
+    if(tarLan === undefined){
+        return null
+      }else{
   this.setState({ tglanguage: tarLan.value, displayTgLanguage: e.currentTarget.textContent })
 
-
+    }
 }    
 handleWordToTranslate=(e)=>{
     this.setState({selectedWord: e.currentTarget.children[0].textContent, initialWordSelection: false,resultWordSelection: true, disabled:false})
