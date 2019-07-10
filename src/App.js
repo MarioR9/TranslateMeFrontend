@@ -8,6 +8,7 @@ import Login from './components/Login'
 import { Route, Switch } from "react-router-dom";
 import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
+import Chat from './components/Chat'
 
 
 export default class App extends React.Component {
@@ -24,6 +25,7 @@ export default class App extends React.Component {
         imagesPage: false,
         imagesBackPage: false,
         imagesFrontPage: false,
+        chatPage: false,
         listOfCategories: [],
         token: '',
         currentUser: [],
@@ -326,6 +328,7 @@ export default class App extends React.Component {
           </div>
         </BrowserRouter> */}
        
+       {/* <Chat/> */}
         {this.handleCurrentPage()}
         </div>
       </div>

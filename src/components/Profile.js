@@ -39,11 +39,11 @@ export default class Profile extends React.Component{
             title: this.state.title,
             language: this.state.language,
             userId: this.props.currentUser.id,
-            url: "https://res.cloudinary.com/translateme/image/upload/v1562562578/DefaultPics/luc79f4qxczxhzenag6y.png"
+            url: "https://res.cloudinary.com/translateme/image/upload/v1562789687/DefaultPics/large_k4w3pn.jpg"
             })
         })
         .then(res=>res.json()).then(data => {
-            debugger
+        
            this.props.handleToken(data)
         this.props.handleCategoryPage()
         this.setState({open: false})    
