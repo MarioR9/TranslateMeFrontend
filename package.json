@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0"
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "react-card-flip": "^0.8.0"
   }
 }

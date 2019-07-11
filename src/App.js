@@ -15,13 +15,13 @@ export default class App extends React.Component {
   constructor(){
       super()
         this.state={
-        homePage: false,
+        homePage: true,
         profilePage: false,
         categoriesPage: false,
         AllCategoriesPage: false,
         CreateNewUserPage: false, 
         createCategoryPage: false, 
-        loginPage: true,
+        loginPage: false,
         imagesPage: false,
         imagesBackPage: false,
         imagesFrontPage: false,

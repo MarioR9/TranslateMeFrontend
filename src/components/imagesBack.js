@@ -19,8 +19,8 @@ export default class ImagesBack extends React.Component{
             <div> 
          
          
-       
-           <Card style={{height:"200px"}} id={this.props.img.id} onClick={this.props.handleCardState} raised className="card" color='red' >
+         <Card.Group>
+           <Card className="ui each imageCard" id={this.props.img.id} onClick={this.props.handleCardState} raised color='red' >
                 <Card.Content meta textAlign="center" >
                     <Card.Header meta textAlign="center">{this.props.img.input}</Card.Header>
                     <Card.Description  meta textAlign="center">
@@ -29,7 +29,7 @@ export default class ImagesBack extends React.Component{
                 </Card.Content>
                
                 </Card>
-          
+                </Card.Group>
            
           </div>
         )
