@@ -1,7 +1,7 @@
 import React from '../../node_modules/react'
 import ImageCard from './imageCard';
 
-import { Card, Modal, Button, Dropdown, Message, Icon, Progress,Grid,Header} from '../../node_modules/semantic-ui-react'
+import { Card, Modal, Button, Dropdown, Message, Icon, Progress,Label,Header} from '../../node_modules/semantic-ui-react'
 
 
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
@@ -159,7 +159,7 @@ handleTranslation=()=>{
             tglanguage: this.state.tglanguage,
             selectedWord: this.state.selectedWord
         })
-    }).then(resp => resp.json()).then(data =>{debugger
+    }).then(resp => resp.json()).then(data =>{
       
     this.setState({translatedWord: data.translation.translations[0].translation, 
             open3: true})
@@ -285,13 +285,19 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
     //   debugger
         return(
           <div>
-             <Button id="addButton" onClick={this.open}><Icon name="plus"/>Add New Image</Button>
-             <Header>{this.props.cateTitle}</Header>
+            
+             <Button as='div' labelPosition='right'>
+                  
+                  <Label as='a' basic color='green' pointing='right' onClick={this.open}>
+                      <Icon name="Add New Image"/> Add New Image
+                  </Label>
+                  </Button>
+             <Header as='h2' image='https://cdn4.iconfinder.com/data/icons/ui-13/100/tags-512.png' content={this.props.cateTitle} />
             <div>
              <Modal dimmer={dimmer} open={open3} onClose={this.close}>
              <Modal.Header>All Images</Modal.Header>
              <Modal.Content >
-             <Card raised image={this.state.imgUrl} />
+             <Card raised centered image={this.state.imgUrl} />
              <Message raised class="ui floating message" positive>
                  <Message.Header>{this.state.translatedWord}</Message.Header>
               </Message>
@@ -371,11 +377,11 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
                 </Button>
             </Modal.Actions>
             </Modal>
-            <Grid>
+      
             <Card.Group>
             {this.props.currentCardImages.map(img => <ImageCard  key={img.id} handleCardImage={this.props.handleCardImage} handleToken={this.props.handleToken} handleCardState={this.handleCardState} img={img} cateId={this.props.cateId} currentImages={this.props.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.props.allUsers} currentUser={this.props.currentUser}/>)}
             </Card.Group>
-            </Grid>
+            
             </div>
 
 

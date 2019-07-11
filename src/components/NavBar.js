@@ -10,10 +10,11 @@ export default class NavBar extends React.Component{
   
         return(
           <Router>
-         <Menu stackable>
+         <Menu  inverted pointing secondar stackable>
             <Menu.Item onClick={this.props.handleNavHome} as={NavLink} to="/home">
               <Image size="mini"  src='TestLogo.png' />
-              Discover
+               Discover
+           
             </Menu.Item>
            
             <Menu.Item

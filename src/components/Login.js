@@ -36,26 +36,22 @@ export default class Login extends React.Component{
 
     render(){
         return(
-            <div>
-            {/* <Image src='TestLogo.png' /> */}
-                <Segment placeholder>
-                    <Grid columns={2} relaxed='very' stackable>
-                        <Grid.Column>
+            <div className="ui login b" >
+           
+               
+                    
+                            <div className="form" >
                             <Form onChange={this.handleUsernameAndPassword}>
                             <Form.Input icon='user' iconPosition='left' label='Username' placeholder='Username' />
                             <Form.Input icon='lock' iconPosition='left' label='Password' type='password' />
 
                             <Button onClick={this.handleLoginFetch} content='Login' primary />
-                            </Form>
-                        </Grid.Column>
-
-                        <Grid.Column verticalAlign='middle'>
                             <Button onClick={this.props.handleCreateNewUser} content='Sign up' icon='signup' size='big' />
-                        </Grid.Column>
-                    </Grid>
+                            </Form>
+                  
+                            </div>
 
-                    <Divider vertical>Or</Divider>
-                </Segment>
+                
             </div>
         )
     }

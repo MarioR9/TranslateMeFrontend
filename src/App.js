@@ -15,13 +15,13 @@ export default class App extends React.Component {
   constructor(){
       super()
         this.state={
-        homePage: true,
+        homePage: false,
         profilePage: false,
         categoriesPage: false,
         AllCategoriesPage: false,
         CreateNewUserPage: false, 
         createCategoryPage: false, 
-        loginPage: false,
+        loginPage: true,
         imagesPage: false,
         imagesBackPage: false,
         imagesFrontPage: false,
@@ -314,7 +314,7 @@ export default class App extends React.Component {
     return (
       <div>   
         <NavBar handleNavLogout={this.handleNavLogout} handleNavProfile={this.handleNavProfile} handleNavHome={this.handleNavHome}/>
-        <div>
+        <div >
         {/* <BrowserRouter>
         <div>
           <Switch>

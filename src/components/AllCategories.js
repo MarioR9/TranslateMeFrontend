@@ -68,7 +68,7 @@ export default class AllCategory extends React.Component{
 
         return(
           <Fragment>
-                    <Card 
+                    <Card fluid className="ui raised card Home"
 
                     id={this.props.category.id} data-name={this.props.category.title} raised image={
                     <Dimmer.Dimmable
@@ -81,7 +81,7 @@ export default class AllCategory extends React.Component{
                         src={this.props.category.url}
                     />
                     } />
-                  
+                    
                    
      
               

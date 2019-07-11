@@ -42,7 +42,26 @@ export default class CreateNewUser extends React.Component{
 
     render(){
         return(
-            <div>
+            
+            <div className="ui login b2">
+                <div className="new Form">
+                <Form >
+                            <Form.Input icon='user' iconPosition='left' label='Username' onChange={this.handleUsername} placeholder='Username' />
+                            <Form.Input icon='lock' iconPosition='left' label='Password' type='password' onChange={this.handlePassword} placeholder='Password' />
+                            <Form.Input icon='lock' iconPosition='left' label='Password' type='password' placeholder='Confirm Password' />
+
+                            <Button color='teal' onClick={this.handleNewUserFetch} content='Create' icon='add' labelPosition='left' />
+
+                            </Form>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+
+                    {/* <div>
                  <Form>
                     
                     <label>Username</label>
@@ -51,7 +70,4 @@ export default class CreateNewUser extends React.Component{
                     <Input onChange={this.handlePassword} placeholder='Password' />
                     <Button color='teal' onClick={this.handleNewUserFetch} content='Create' icon='add' labelPosition='left' />
                 </Form>
-            </div>
-        )
-    }
-}
+                </div> */}

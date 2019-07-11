@@ -21,17 +21,18 @@ export default class Home extends React.Component{
     render(){
         return(
             <div>
-                <div style={{height: "250px", 
-                        backgroundImage: `url(/languages.png)`,
+                <div >
+                   <div style={{height: "400px", 
+                        backgroundImage: `url(https://images7.alphacoders.com/921/921805.jpg)`,
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat'
                         }}>
-                   
+                            
+                   </div>
                 </div>
-                <div>        
-                <Card.Group fluid stackable itemsPerRow={5} centered > 
-                
+                <div id="divCardHome">       
+                <Card.Group fluid stackable itemsPerRow={4} centered > 
                 {this.props.categories.map(category => <AllCategories handleImagePage={this.props.handleImagePage} handleLoginPage={this.props.handleLoginPage} handleHomePageToProfile={this.props.handleHomePageToProfile} handleToken={this.props.handleToken} currentUser={this.props.currentUser} id={category.id} key={category.id}category={category}/>)}
                 </Card.Group>
                 </div>

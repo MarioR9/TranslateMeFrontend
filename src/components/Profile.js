@@ -39,7 +39,7 @@ export default class Profile extends React.Component{
             title: this.state.title,
             language: this.state.language,
             userId: this.props.currentUser.id,
-            url: "https://res.cloudinary.com/translateme/image/upload/v1562789687/DefaultPics/large_k4w3pn.jpg"
+            url: "https://res.cloudinary.com/translateme/image/upload/v1562816903/DefaultPics/hdtr6ein3yq8jcoypg4t.png"
             })
         })
         .then(res=>res.json()).then(data => {
@@ -65,8 +65,8 @@ export default class Profile extends React.Component{
         const { open, dimmer } = this.state
         const { visible } = this.state
         return(
-            <div >
-  <Button.Group>
+            <div className="ui div backg">
+  {/* <Button.Group>
           <Button disabled={visible} onClick={this.handleShowClick}>
             User
           </Button>
@@ -100,14 +100,15 @@ export default class Profile extends React.Component{
 
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
-            <Card.Group>
-                    <Card raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
-                        {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
-                    </Card.Group>
 
             </Segment>
           </Sidebar.Pusher>
-        </Sidebar.Pushable>
+        </Sidebar.Pushable> */}
+                    
+                    <Card  className="ui Add Category" raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
+            <Card.Group fluid stackable itemsPerRow={5} centered  >
+                        {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
+            </Card.Group>
 
               <Modal dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Add a New Category</Modal.Header>
