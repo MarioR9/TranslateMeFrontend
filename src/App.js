@@ -1,4 +1,4 @@
-import React from '../node_modules/react';
+import React , {Fragment} from '../node_modules/react';
 import './App.css';
 import NavBar from './components/NavBar'
 import Home from './components/Home'
@@ -15,13 +15,13 @@ export default class App extends React.Component {
   constructor(){
       super()
         this.state={
-        homePage: true,
+        homePage: false,
         profilePage: false,
         categoriesPage: false,
         AllCategoriesPage: false,
         CreateNewUserPage: false, 
         createCategoryPage: false, 
-        loginPage: false,
+        loginPage: true,
         imagesPage: false,
         imagesBackPage: false,
         imagesFrontPage: false,
@@ -314,9 +314,9 @@ export default class App extends React.Component {
     return (
       <div>   
         <NavBar handleNavLogout={this.handleNavLogout} handleNavProfile={this.handleNavProfile} handleNavHome={this.handleNavHome}/>
-        <div >
+        <Fragment>
         {/* <BrowserRouter>
-        <div>
+        <Fragment>
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/signup" component={CreateNewUser} />
@@ -325,12 +325,12 @@ export default class App extends React.Component {
             <Route path="/cards" component={Images}/>
             <Route path="/" component={Home} />
           </Switch>
-          </div>
+          </Fragment>
         </BrowserRouter> */}
        
        {/* <Chat/> */}
         {this.handleCurrentPage()}
-        </div>
+        </Fragment>
       </div>
 
     )

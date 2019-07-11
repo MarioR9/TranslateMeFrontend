@@ -23,7 +23,7 @@ export default class Home extends React.Component{
             <div>
                 <div >
                    <div style={{height: "400px", 
-                        backgroundImage: `url(https://images7.alphacoders.com/921/921805.jpg)`,
+                        backgroundImage: `url(Header.jpg)`,
                         backgroundPosition: 'center',
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat'

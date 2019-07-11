@@ -19,7 +19,12 @@
   margin-right: 2%;
   border-radius: 53px;
 }
-
+/* .Form.Border{
+  background-image: url(/border.jpg);
+  background-position: center;
+   background-repeat: repeat;
+   background-size: cover;
+} */
 .ui.raised.card.Home {
   
   border-radius: 59px;

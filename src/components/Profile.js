@@ -111,19 +111,17 @@ export default class Profile extends React.Component{
                         {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
             </Card.Group>
 
-              <Modal dimmer={dimmer} open={open} onClose={this.close}>
+              <Modal  dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Add a New Category</Modal.Header>
-                <Modal.Content image>
-                <Form>
+                <Modal.Content content>
+                <Form >
                     <Form.Field>
                     <label>Title</label>
                     <input onChange={this.handleTitle} placeholder='Title'/>
                     </Form.Field>
                     <Form.Field>
-                    <label>Language</label>
+                    <label>Language I Want To Learn</label>
                     <input onChange={this.handleLanguage} placeholder='Language'/>
-                    </Form.Field>
-                    <Form.Field>
                     </Form.Field>
                 </Form>
                 </Modal.Content>
