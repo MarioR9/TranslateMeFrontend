@@ -7,7 +7,6 @@ import { Card, Modal, Button, Dropdown, Message, Icon, Progress,Label,Header} fr
 let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
                  {key:'Chinese_Simplified',text:'Chinese_Simplified', value: "zh"},
                  {key:'Chinese_Traditional',text:'Chinese_Traditional',value: "zh-TW"},                
-                 {key:'Czech',text:'Chuvash', value:"cs"},
                  {key:'Danish',text:'Danish', value: "da"},
                  {key:'Dutch',text:'Dutch', value: "nl"},
                  {key:'English',text:'English', value: "en"},
@@ -32,8 +31,7 @@ let languages = [{key:'Arabic',text:'Arabic', value: "ar"},
                  
 let languages2 = {'ar':'Arabic',
                  "zh":'Chinese_Simplified',
-                 "zh-Tw":'Chinese_Traditional',                
-                 "cs":'Czech',
+                 "zh-Tw":'Chinese_Traditional',
                  "da":'Danish', 
                  "nl": 'Dutch',
                  "en":'English',
@@ -119,7 +117,7 @@ showUploadWidget=()=> {
        cloudName: "translateme",
        uploadPreset: "qks45ycm",
        inlineContainer: "#lewidget",
-       sources: ["local","dropbox","camera","facebook","instagram","url"],
+       sources: ["local","dropbox","facebook","instagram","url"],
        showAdvancedOptions: false,
        cropping: true,
        upload: false,
@@ -297,7 +295,7 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
              <Header as='h2' image='https://cdn4.iconfinder.com/data/icons/ui-13/100/tags-512.png' content={this.props.cateTitle} />
             <div>
              <Modal dimmer={dimmer} open={open3} onClose={this.close}>
-             <Modal.Header>All Images</Modal.Header>
+             <Modal.Header>Translation</Modal.Header>
              <Modal.Content >
              <Card raised centered image={this.state.imgUrl} />
              <Message raised class="ui floating message" positive>
@@ -343,7 +341,7 @@ toggle2 = () => this.setState(prevState => ({ percent: prevState.percent === 50 
               <Modal dimmer={dimmer} open={open} >
               <Modal.Header><Icon name="language"/>Select a Language </Modal.Header>
               <Modal.Content>
-              <Progress percent={this.state.percent} success disabled={this.state.disabled} />{this.state.startBarState}
+              <Progress percent={this.state.percent} success active/><h3>{this.state.startBarState}</h3>
               </Modal.Content> 
               <Modal.Content image>
                   <Dropdown 
