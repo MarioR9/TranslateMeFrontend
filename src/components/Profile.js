@@ -32,6 +32,7 @@ export default class Profile extends React.Component{
     handleLanguage = (e) => this.setState({language: e.currentTarget.value}) 
 
     handleFetch=()=>{
+      
         fetch('http://localhost:3000/api/v1/categories',{
         method: "POST",
         headers: {"Content-type": "application/json"},

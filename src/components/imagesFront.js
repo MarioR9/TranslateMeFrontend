@@ -37,7 +37,7 @@ export default class ImagesFront extends React.Component{
             <Card className="ui each imageCard" key={this.props.img.id} id={this.props.img.id} onClick={this.props.handleCardState} raised color='red'>
             <Segment>
             <Label  as='a' color='red' ribbon='right' onClick={this.open}>Delete</Label>
-              <Image  src={this.props.img.url}/>
+              <Image size="medium" src={this.props.img.url}/>
               </Segment>
             </Card>
             

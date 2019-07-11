@@ -22,9 +22,17 @@ export default class ImagesBack extends React.Component{
          <Card.Group>
            <Card className="ui each imageCard" id={this.props.img.id} onClick={this.props.handleCardState} raised color='red' >
                 <Card.Content meta textAlign="center" >
-                    <Card.Header meta textAlign="center">{this.props.img.input}</Card.Header>
+                    <Card.Header meta textAlign="center"><h1>{this.props.img.input}</h1></Card.Header>
                     <Card.Description  meta textAlign="center">
-                        {this.props.img.tarlanguage}
+                      <h2>{this.props.img.tarlanguage}</h2>
+
+                    </Card.Description>
+                    <br></br>
+                    <br></br>
+                    <Card.Header meta textAlign="center"><h1>{this.props.img.original}</h1></Card.Header>
+                    <Card.Description  meta textAlign="center">
+                      <h2>{this.props.img.orglanguage}</h2>
+
                     </Card.Description>
                 </Card.Content>
                

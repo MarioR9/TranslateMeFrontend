@@ -168,6 +168,8 @@ handleTranslation=()=>{
     headers: {"Content-type": "application/json"},
     body: JSON.stringify({
             input: this.state.translatedWord,
+            orglanguage:this.state.displayOgLanguage,
+            original: this.state.selectedWord,
             tarlanguage: this.state.displayTgLanguage,
             imgUrl: this.state.imgUrl,
             cateId: this.props.cateId
