@@ -290,7 +290,9 @@ export default class App extends React.Component {
       
   //   }
   // }
-
+  handleChat=()=>{
+    this.setState({chatPage: true, profilePage: false})
+  }
 
   handleCurrentPage=()=>{
     
@@ -299,11 +301,13 @@ export default class App extends React.Component {
     }else if (this.state.homePage === true){
       return <Home handleImagePage={this.handleImagePage} handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleCardImage={this.handleCardImage}  handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleChat={this.handleChat} handleCardImage={this.handleCardImage}  handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
       return <Images cateTitle={this.state.cateTitle} cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleCardImage={this.handleCardImage}/>
+    }else if (this.state.chatPage === true){
+      return <Chat username={this.state.currentUser.username} />
     }
   }
 

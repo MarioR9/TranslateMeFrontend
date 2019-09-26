@@ -7,30 +7,40 @@ export default class Chat extends React.Component{
             super()
             this.state={
                 messages: [],
-                ConversationsChannel: ""
+                username:'',
+                usernameData:"",
+                ConversationsChannel: "",
+                currentMessage: ""
             }
         }
 
 componentDidMount=()=>{
-
+   
   let conChan = cable.subscriptions.create({channel: 'ConversationsChannel', room: "Spanish"}, {
         // normal channel code goes here...
         connected: (data)=>{}, 
         disconnected:()=>{} , 
         received: (data)=>{
-        this.setState({messages: [...this.state.messages,data.message]})}
+        this.setState({messages: [...this.state.messages,data.message], usernameData: data.username })}
     });
     this.setState({ConversationsChannel: conChan})
 }
-    handleMsg=()=>{ 
-       this.state.ConversationsChannel.send({  message: 'All the news that is fit to print' })
-    }   
+    handleMsg=(e)=>{ 
+      
+        this.setState({username: e.currentTarget.parentElement.children[0].value})
+       this.state.ConversationsChannel.send({  message: this.state.currentMessage, username: this.state.username})
+    } 
+  
         render(){
+            let t = this
+        
             return(
                 <div>
-                    <button onClick={this.handleMsg}>Send</button>
+                    <input type="text"></input>
+                    <input type="text" onChange={(e)=>{this.setState({currentMessage: e.currentTarget.value})}} ></input>
+                    <button onClick={this.handleMsg}>Send Message</button>
                     <div>
-                    {this.state.messages.map(msg => <p>{msg}</p>)}
+                    {this.state.messages.map(msg => <p>{this.state.usernameData}: {msg}</p>)}
                     </div>
                 </div>
             )

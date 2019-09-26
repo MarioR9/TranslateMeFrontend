@@ -67,7 +67,7 @@ export default class Profile extends React.Component{
         const { visible } = this.state
         return(
             <div className="ui div backg">
-  {/* <Button.Group>
+  <Button.Group>
           <Button disabled={visible} onClick={this.handleShowClick}>
             User
           </Button>
@@ -93,7 +93,7 @@ export default class Profile extends React.Component{
               <Icon name='settings' />
               settings
             </Menu.Item>
-            <Menu.Item as='a'>
+            <Menu.Item onClick={this.props.handleChat} as='a'>
               <Icon name='wechat' />
               Chats
             </Menu.Item>
@@ -102,14 +102,18 @@ export default class Profile extends React.Component{
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
 
-            </Segment>
-          </Sidebar.Pusher>
-        </Sidebar.Pushable> */}
-                    
+
+
                     <Card  className="ui Add Category" raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
             <Card.Group fluid stackable itemsPerRow={5} centered  >
                         {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
             </Card.Group>
+
+
+            </Segment>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+                    
 
               <Modal  dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Add a New Category</Modal.Header>
