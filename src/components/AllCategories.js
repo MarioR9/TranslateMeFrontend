@@ -1,5 +1,5 @@
-import React from '../../node_modules/react'
-import { Button, Dimmer, Header, Image, Card, Modal,Icon } from '../../node_modules/semantic-ui-react'
+import React, {Fragment} from '../../node_modules/react'
+import { Button, Dimmer, Header, Image, Card, Modal} from '../../node_modules/semantic-ui-react'
 
 
 
@@ -54,7 +54,7 @@ export default class AllCategory extends React.Component{
         const { open, dimmer } = this.state
         const { active } = this.state
         const content = (
-            <div>
+            <div >
                 <Header as='h2' inverted>
                 {this.props.category.title}
                 </Header>
@@ -67,37 +67,11 @@ export default class AllCategory extends React.Component{
              )
 
         return(
-            <div>
-                    <div>
-                        <Modal dimmer={dimmer} open={open} onClose={this.close}>
-                        <Modal.Header>Select a Photo</Modal.Header>
-                        <Modal.Content image>
-                            <Image wrapped size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
-                            <Modal.Description>
-                            <Header>Default Profile Image</Header>
-                            <p>We've found the following gravatar image associated with your e-mail address.</p>
-                            <p>Is it okay to use this photo?</p>
-                            </Modal.Description>
-                        </Modal.Content>
-                        <Modal.Actions>
-                            <Button color='black' onClick={this.close}>
-                            Nope
-                            </Button>
-                            <Button
-                            positive
-                            icon='checkmark'
-                            labelPosition='right'
-                            content="Create"
-                            onClick={this.close}
-                            />
-                        </Modal.Actions>
-                        </Modal>
-                    </div>
+          <Fragment>
+                    <Card fluid className="ui raised card Home"
 
-                <div>
-                    <Card id={this.props.category.id} raised className="card" color='red' image={
+                    id={this.props.category.id} data-name={this.props.category.title} raised image={
                     <Dimmer.Dimmable
-                        
                         as={Image}
                         dimmed={active}
                         dimmer={{ active, content }}
@@ -106,24 +80,13 @@ export default class AllCategory extends React.Component{
                         size='medium'
                         src={this.props.category.url}
                     />
-                    } >
-                    </Card> 
-                    <div>
-                    <Card.Content>
-                        <Card.Header>{this.props.category.title}</Card.Header>
-                        <Card.Description>
-                            {this.props.category.language}
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                       
-                            <Icon name='images outline' />
-                            {this.props.category.images.length} images
-                       
-                    </Card.Content>
-                    </div>
-                </div>
-        </div>
+                    } />
+                    
+                   
+     
+              
+          </Fragment>
         )
     }
 }
+

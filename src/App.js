@@ -1,28 +1,31 @@
-import React from '../node_modules/react';
+import React , {Fragment} from '../node_modules/react';
 import './App.css';
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
-// import { Route, Switch } from "react-router-dom";
-// import {BrowserRouter} from 'react-router-dom'
+import { Route, Switch } from "react-router-dom";
+import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
-import ImagesBack from './components/imagesBack'
+import Chat from './components/Chat'
+
 
 export default class App extends React.Component {
   constructor(){
       super()
         this.state={
-        homePage: true,
+        homePage: false,
         profilePage: false,
         categoriesPage: false,
         AllCategoriesPage: false,
         CreateNewUserPage: false, 
         createCategoryPage: false, 
-        loginPage: false,
+        loginPage: true,
         imagesPage: false,
         imagesBackPage: false,
+        imagesFrontPage: false,
+        chatPage: false,
         listOfCategories: [],
         token: '',
         currentUser: [],
@@ -30,8 +33,10 @@ export default class App extends React.Component {
         currentCategories: [],
         currentUserCategories: [],
         currentImages: [],
-        cateId: 0,
-        currentPage: []
+        currentCardImages:[],
+        cateId: null,
+        currentPage: [],
+        cateTitle : ""
         }
   }
   componentDidMount=()=>{
@@ -120,6 +125,7 @@ export default class App extends React.Component {
   }
   handleImagePage=(e)=>{
    
+  this.handleCardImage(e.currentTarget.id)
     this.setState({
       homePage: false,
       profilePage: false,
@@ -128,18 +134,58 @@ export default class App extends React.Component {
       CreateNewUserPage: false,  
       loginPage: false,
       imagesPage: true,
-      cateId: e.currentTarget.id
+      cateId: e.currentTarget.id,
+      cateTitle: e.currentTarget.dataset.name
+    })
+  }
+  handleCateTitle=(data)=>{
+    this.setState({cateTitle: data})
+  }
+  handleImagePageNew=(cateId)=>{
+   
+  this.handleCardImage(cateId)
+    this.setState({
+      homePage: false,
+      profilePage: false,
+      categoriesPage: false,
+      AllCategoriesPage: false,
+      CreateNewUserPage: false,  
+      loginPage: false,
+      imagesPage: true,
+      cateId: cateId
     })
   }
   handleImageRender=(data)=>{
     this.setState({
-      currentImages: data
+      currentImages: [...this.state.currentImages,data]
      })
   }
 
   handleToken=(data)=>{
-
-    if(!data.message){
+  // debugger
+    if(data.newDup){
+      this.handleImagePageNew(data.newDup.id,)
+      this.handleCateTitle(data.newDup.title)
+      this.setState({
+        token: data.token,
+        currentUser: data.user,
+        currentUserCategories: data.categories,
+        })
+        localStorage.setItem('token', data.token)
+        fetch('http://localhost:3000/api/v1/findCategories',{
+          method: "POST",
+          headers: {"Content-type": "application/json"},
+          body: JSON.stringify({
+              userId: data.user.id
+              })
+          })
+          .then(res=>res.json()).then(data => {
+          this.setState({currentImages: data})  
+          fetch('http://localhost:3000/api/v1/categories')
+          .then(res=>res.json()).then(data => {
+          this.setState({listOfCategories: [...this.state.listOfCategories,data]})})  
+      })
+    }else if(!data.message){
       this.setState({
         loginPage: false,
         profilePage: true,
@@ -161,11 +207,23 @@ export default class App extends React.Component {
           fetch('http://localhost:3000/api/v1/categories')
           .then(res=>res.json()).then(data => {
           this.setState({listOfCategories: data})})  
-      })   
-        
+      })
+      
     }else{
       alert(data.message)
     }
+  }
+
+  handleCardImage=(id)=>{
+    
+    fetch('http://localhost:3000/api/v1/findCategory',{
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({
+            cateId: id
+           })
+        }).then(resp=>resp.json()).then(data => {
+            this.setState({currentCardImages: data})}) 
   }
   handleCategoryPage=()=>{
     this.setState({
@@ -179,24 +237,26 @@ export default class App extends React.Component {
     }else{
         fetch('http://localhost:3000/api/v1/categories')
         .then(res=>res.json()).then(data => {
-        this.setState({listOfCategories: data})}) 
+        this.setState({listOfCategories: [...this.state.listOfCategories,data]})}) 
     this.setState({
         homePage: false,
        profilePage :true,
        currentUser: data.user,
-       currentUserCategories: data.categories,
+       currentUserCategories: [...this.state.currentUserCategories,data.categories],
     })
   }
   }
+
+
   handleRenderNewCategories=(data)=>{
     this.setState({
        profilePage :true,
        currentUser: data.user,
-       currentUserCategories: data.categories,
+       currentUserCategories: data.categories
     })
     fetch('http://localhost:3000/api/v1/categories')
         .then(res=>res.json()).then(data => {
-        this.setState({listOfCategories: data})})
+        this.setState({listOfCategories: [...this.state.listOfCategories,data]})})
   
   }
 
@@ -230,22 +290,24 @@ export default class App extends React.Component {
       
   //   }
   // }
-
+  handleChat=()=>{
+    this.setState({chatPage: true, profilePage: false})
+  }
 
   handleCurrentPage=()=>{
     
     if(this.state.loginPage === true){
       return <Login handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} handleToken={this.handleToken} handleCreateNewUser={this.handleCreateNewUser}/>
     }else if (this.state.homePage === true){
-      return <Home handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
+      return <Home handleImagePage={this.handleImagePage} handleLoginPage={this.handleLoginPage} handleHomePageToProfile={this.handleHomePageToProfile} handleToken={this.handleToken} currentUser={this.state.currentUser} categories={this.state.listOfCategories}/>
     }else if (this.state.profilePage === true){
-      return <Profile handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Profile handleChat={this.handleChat} handleCardImage={this.handleCardImage}  handleCategoryPage={this.handleCategoryPage} handleLoginPage={this.handleLoginPage} handleRenderNewCategories={this.handleRenderNewCategories} listOfCategories={this.state.listOfCategories} handleImagePage={this.handleImagePage} handleCateImages={this.handleCateImages} currentUserCategories={this.state.currentUserCategories} handleToken={this.handleToken} handleCreateCategory={this.handleCreateCategory} handleCurrentCategories={this.handleCurrentCategories} currentCategories={this.state.currentCategories} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
     }else if (this.state.CreateNewUserPage === true){
       return <CreateNewUser handleToken={this.handleToken}/>
     }else if (this.state.imagesPage === true){
-      return <Images cateId={this.state.cateId} currentImages={this.state.currentImages} handleImageRender={this.handleImageRender} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
-    }else if (this.state.imagesBackPage === true){
-      return <ImagesBack currentImages={this.state.currentImages} cateId={this.state.cateId} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser}/>
+      return <Images cateTitle={this.state.cateTitle} cateId={this.state.cateId} currentCardImages={this.state.currentCardImages} handleImageRender={this.handleImageRender} currentImages={this.state.currentImages} handleImageBackPage={this.handleImageBackPage} allUsers={this.state.allUsers} currentUser={this.state.currentUser} handleCardImage={this.handleCardImage}/>
+    }else if (this.state.chatPage === true){
+      return <Chat username={this.state.currentUser.username} />
     }
   }
 
@@ -256,22 +318,23 @@ export default class App extends React.Component {
     return (
       <div>   
         <NavBar handleNavLogout={this.handleNavLogout} handleNavProfile={this.handleNavProfile} handleNavHome={this.handleNavHome}/>
-        <div>
+        <Fragment>
         {/* <BrowserRouter>
-        <div>
+        <Fragment>
           <Switch>
-            <Route path="/home" component={AllCategories} />
+            <Route path="/home" component={Home} />
             <Route path="/signup" component={CreateNewUser} />
             <Route path="/login" component={Login} />
-            <Route path="/category" component={CategoryCreation} />
             <Route path="/profile" component={Profile} />
+            <Route path="/cards" component={Images}/>
             <Route path="/" component={Home} />
           </Switch>
-          </div>
+          </Fragment>
         </BrowserRouter> */}
        
+       {/* <Chat/> */}
         {this.handleCurrentPage()}
-        </div>
+        </Fragment>
       </div>
 
     )

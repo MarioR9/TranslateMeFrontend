@@ -32,6 +32,7 @@ export default class Profile extends React.Component{
     handleLanguage = (e) => this.setState({language: e.currentTarget.value}) 
 
     handleFetch=()=>{
+      
         fetch('http://localhost:3000/api/v1/categories',{
         method: "POST",
         headers: {"Content-type": "application/json"},
@@ -39,11 +40,11 @@ export default class Profile extends React.Component{
             title: this.state.title,
             language: this.state.language,
             userId: this.props.currentUser.id,
-            url: "https://res.cloudinary.com/translateme/image/upload/v1562562578/DefaultPics/luc79f4qxczxhzenag6y.png"
+            url: "https://res.cloudinary.com/translateme/image/upload/v1562816903/DefaultPics/hdtr6ein3yq8jcoypg4t.png"
             })
         })
         .then(res=>res.json()).then(data => {
-            // debugger
+        
            this.props.handleToken(data)
         this.props.handleCategoryPage()
         this.setState({open: false})    
@@ -65,7 +66,7 @@ export default class Profile extends React.Component{
         const { open, dimmer } = this.state
         const { visible } = this.state
         return(
-            <div >
+            <div className="ui div backg">
   <Button.Group>
           <Button disabled={visible} onClick={this.handleShowClick}>
             User
@@ -92,7 +93,7 @@ export default class Profile extends React.Component{
               <Icon name='settings' />
               settings
             </Menu.Item>
-            <Menu.Item as='a'>
+            <Menu.Item onClick={this.props.handleChat} as='a'>
               <Icon name='wechat' />
               Chats
             </Menu.Item>
@@ -100,28 +101,31 @@ export default class Profile extends React.Component{
 
           <Sidebar.Pusher dimmed={visible}>
             <Segment basic>
-            <Card.Group>
-                    <Card raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
-                        {this.props.currentUserCategories.map(cate => <Categories key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
-                    </Card.Group>
+
+
+
+                    <Card  className="ui Add Category" raised color='red' image="plus.jpg" onClick={this.show('blurring')}/>
+            <Card.Group fluid stackable itemsPerRow={5} centered  >
+                        {this.props.currentUserCategories.map(cate => <Categories  handleCardImage={this.props.handleCardImage}  key={cate.id} handleCategoryDeletion={this.handleCategoryDeletion} handleCateImages={this.props.handleCateImages} handleImagePage={this.props.handleImagePage} handleCurrentCategories={this.props.handleCurrentCategories} handleCategoryPage={this.props.handleCategoryPage} cate={cate}/>)}
+            </Card.Group>
+
 
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
+                    
 
-              <Modal dimmer={dimmer} open={open} onClose={this.close}>
+              <Modal  dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Add a New Category</Modal.Header>
-                <Modal.Content image>
-                <Form>
+                <Modal.Content content>
+                <Form >
                     <Form.Field>
                     <label>Title</label>
                     <input onChange={this.handleTitle} placeholder='Title'/>
                     </Form.Field>
                     <Form.Field>
-                    <label>Language</label>
+                    <label>Language I Want To Learn</label>
                     <input onChange={this.handleLanguage} placeholder='Language'/>
-                    </Form.Field>
-                    <Form.Field>
                     </Form.Field>
                 </Form>
                 </Modal.Content>

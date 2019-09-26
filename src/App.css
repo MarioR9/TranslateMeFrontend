@@ -7,6 +7,92 @@
   color: red
 }
 
+#addButton {
+  border: solid;
+  color: blue
+}
+#divCard {
+  margin-top: 2%;
+}
+#divCardHome {
+  margin-left: 2%;
+  margin-right: 2%;
+  border-radius: 53px;
+}
+/* .Form.Border{
+  background-image: url(/border.jpg);
+  background-position: center;
+   background-repeat: repeat;
+   background-size: cover;
+} */
+.ui.raised.card.Home {
+  
+  border-radius: 59px;
+  border-color: black;
+  border: solid;
+  overflow: hidden;
+}
+
+.ui.each.imageCard {
+  margin-top: 5%;
+  height: 250px;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.profile.Card.Button {
+ 
+  border-radius: 100px;
+  border-color: black;
+  border: solid;
+  overflow: hidden;
+}
+.ui.Add.Category {
+  margin-left: 2%;
+  overflow: hidden;
+}
+
+.ui.div.backg {
+  background-image: url(/background.jpg);
+   /* Full height */
+   height: 100%; 
+
+   /* Center and scale the image nicely */
+   background-position: center;
+   background-repeat: repeat;
+   background-size: cover;
+}
+.ui.login.b {
+  background-image: url(/LeftAPple.jpg);
+   /* Full height */
+   height: 500px; 
+
+   /* Center and scale the image nicely */
+   background-position: center;
+   background-repeat: repeat;
+   background-size: cover;
+}
+.ui.login.b2 {
+  background-image: url(/RighAPple.jpg);
+   /* Full height */
+   height: 500px; 
+
+   /* Center and scale the image nicely */
+   background-position: center;
+   background-repeat: repeat;
+   background-size: cover;
+}
+.form {
+  margin-left: 40%;
+  margin-right: 20%;
+  margin-top: 10%;
+}
+.new.Form {
+  margin-left: 0%;
+  margin-right: 40%;
+  margin-top: 10%;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
