@@ -9,3 +9,4 @@ Implemented IBM Language Translator to translate words users select
 Utilized Cloudinary to save images users upload
 
 ## TranslateMeBackend
+/amo/dw/:addonId
