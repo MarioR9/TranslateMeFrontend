@@ -1,6 +1,6 @@
 [![Generic badge](https://img.shields.io/badge/Code-React-blue.svg)](https://shields.io/)&nbsp; [![Generic badge](https://img.shields.io/badge/Code-RubyOnRails-red.svg)](https://shields.io/)&nbsp; [![Generic badge](https://img.shields.io/badge/Code-JavaScript-yellow.svg)](https://shields.io/)&nbsp; ![GitHub repo size](https://img.shields.io/github/repo-size/MarioR9/TranslateMeFrontend?color=g&label=Repo%20Size)
 
-## TranslateMeBackend
+## TranslateMeFrontend
 
 Translate me uses a machine learning technology to classify and translate images into different languages. Once the image is captured, users can flip the image to reveal the desired translated word for the image.
 
