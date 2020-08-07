@@ -7,6 +7,7 @@ Translate me uses a machine learning technology to classify and translate images
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
+* [images](#images)
 
 ## General info
 
@@ -25,7 +26,7 @@ Project is created with:
 * Ruby version: 2.6
 * IBM Watson version: 0.18
 
-## Contribute
+## Images
 
 Contributions are always welcome! Please read the contribution guidelines first.
 
