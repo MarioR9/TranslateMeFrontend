@@ -29,5 +29,4 @@ Project is created with:
 
 Contributions are always welcome! Please read the contribution guidelines first.
 
-## TranslateMeBackend
-/
+
