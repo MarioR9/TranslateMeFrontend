@@ -6,10 +6,15 @@
   &nbsp;
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/MarioR9/TranslateMeFrontend?label=JavaScript&logo=javascript&style=plastic">
 </p>
- 
 
 
 ## TranslateMeBackend
+
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+
+## General info
 
 Translate me uses a machine learning technology to classify and translate images into different languages. Once the image is captured, users can flip the image to reveal the desired translated word for the image.
 
@@ -18,5 +23,11 @@ Developed a Rails API backend.
 Implemented IBM Visual Recognition to classify images users upload.
 Implemented IBM Language Translator to translate words users select
 Utilized Cloudinary to save images users upload
+	
+## Technologies
+Project is created with:
+* React version: 16.8
+* Cloudinary-react version: 1.1
+* Semantic-ui-react version: 0.87
 
 ## TranslateMeBackend
