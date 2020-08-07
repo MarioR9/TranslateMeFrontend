@@ -1,12 +1,4 @@
-
-<p>
-  <a href="https://portfolio-7f8cc.web.app/">
- <img  alt="Website" src="https://img.shields.io/website?color=g&down_color=red&down_message=offline&label=Portfolio&logo=G&style=plastic&up_color=green&up_message=online&url=https%3A%2F%2Fportfolio-7f8cc.web.app%2F">
-  </a>
-  &nbsp;
-<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/MarioR9/TranslateMeFrontend?label=JavaScript&logo=javascript&style=plastic">
-</p>
-
+[![Generic badge](https://img.shields.io/badge/Code-React-blue.svg)](https://shields.io/)&nbsp; [![Generic badge](https://img.shields.io/badge/Code-RubyOnRails-red.svg)](https://shields.io/)&nbsp; [![Generic badge](https://img.shields.io/badge/Code-JavaScript-yellow.svg)](https://shields.io/)&nbsp; ![GitHub repo size](https://img.shields.io/github/repo-size/MarioR9/TranslateMeFrontend?color=g&style=plastic)
 
 ## TranslateMeBackend
 
@@ -32,5 +24,9 @@ Project is created with:
 * Semantic-ui-react version: 0.87
 * Ruby version: 2.6
 * IBM Watson version: 0.18
+
+## Contribute
+
+Contributions are always welcome! Please read the contribution guidelines first.
 
 ## TranslateMeBackend
