@@ -1,5 +1,7 @@
 ## TranslateMeBackend
 
+<img alt="Website" src="https://img.shields.io/website?color=g&down_color=red&down_message=offline&label=Portfolio&logo=G&style=plastic&up_color=green&up_message=online&url=https%3A%2F%2Fportfolio-7f8cc.web.app%2F">
+
 Translate me uses a machine learning technology to classify and translate images into different languages. Once the image is captured, users can flip the image to reveal the desired translated word for the image.
 
 Implemented a beautiful user interface employing React with Semantic-React for styling.
