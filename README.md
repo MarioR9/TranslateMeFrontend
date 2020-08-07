@@ -37,7 +37,7 @@ Project is created with:
 ##### Category 
 <img src="ReadmeImages/categoryCards.png" width="300"> 
 
-##### Cards
+##### Translate
 <img src="ReadmeImages/selectLanguage.png" width="300"> 
 
 
