@@ -5,8 +5,6 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import CreateNewUser from './components/CreateNewUser';
 import Login from './components/Login'
-import { Route, Switch } from "react-router-dom";
-import {BrowserRouter} from 'react-router-dom'
 import Images from './components/images'
 import Chat from './components/Chat'
 
