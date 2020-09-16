@@ -2,7 +2,6 @@ import React from '../../node_modules/react'
 import ImagesBack from './imagesBack';
 import ImagesFront from './imagesFront';
 import ReactCardFlip from 'react-card-flip';
-import { Card} from '../../node_modules/semantic-ui-react'
 
 export default class Images extends React.Component{
     constructor(){
