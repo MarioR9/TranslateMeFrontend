@@ -48,10 +48,6 @@ export default class AllCategory extends React.Component{
 
     render(){
 
-
-        // let t= this 
-        // debugger
-        const { open, dimmer } = this.state
         const { active } = this.state
         const content = (
             <div >

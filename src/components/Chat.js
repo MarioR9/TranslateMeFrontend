@@ -32,8 +32,6 @@ componentDidMount=()=>{
     } 
   
         render(){
-            let t = this
-        
             return(
                 <div>
                     <input type="text"></input>
