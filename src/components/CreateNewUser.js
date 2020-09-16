@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Form, Input, Button } from '../../node_modules/semantic-ui-react'
+import { Form, Button } from '../../node_modules/semantic-ui-react'
 
 
 export default class CreateNewUser extends React.Component{

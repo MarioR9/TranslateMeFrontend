@@ -1,5 +1,5 @@
 import React from '../../node_modules/react'
-import { Button, Divider, Form, Grid, Segment } from '../../node_modules/semantic-ui-react'
+import { Button,Form } from '../../node_modules/semantic-ui-react'
 
 
 export default class Login extends React.Component{

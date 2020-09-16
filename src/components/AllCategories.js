@@ -1,5 +1,5 @@
 import React, {Fragment} from '../../node_modules/react'
-import { Button, Dimmer, Header, Image, Card, Modal} from '../../node_modules/semantic-ui-react'
+import { Button, Dimmer, Header, Image, Card} from '../../node_modules/semantic-ui-react'
 
 
 
